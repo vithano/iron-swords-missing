@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import PersonData from "../utils/types";
+import PersonData from "../app/utils/types";
 import {sanitizeImageUrl} from "@/lib/utils";
 
 export function PersonCard(data: PersonData) {

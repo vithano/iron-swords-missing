@@ -1,5 +1,5 @@
 'use client'
-import PersonData from "../utils/types";
+import PersonData from "../app/utils/types";
 import {PersonCard} from "./person-card";
 
 export function SearchResults({data}: {data: PersonData[]}) {

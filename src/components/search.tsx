@@ -1,7 +1,7 @@
 'use client'
 import {Input} from "@/components/ui/input";
-import {fetchData} from "../_actions/actions";
-import PersonData from "../utils/types";
+import {fetchData} from "@/actions";
+import PersonData from "../app/utils/types";
 import {debounce} from "@/lib/utils";
 
 export function Search({setData}: {setData: (data: PersonData[]) => void}) {

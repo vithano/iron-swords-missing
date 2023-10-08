@@ -1,7 +1,7 @@
 import {cn, sanitizeImageUrl} from "@/lib/utils";
 
 
-import {fetchById} from "../../_actions/actions";
+import {fetchById} from "@/actions";
 
 
 export default async function Page({params}: {params: {id: string}}) {

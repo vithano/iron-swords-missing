@@ -1,10 +1,6 @@
 'use server'
 
-import fetchSheetData from '../utils/fetch-sheet-data';
-
-export async function fetchData({name}: {name: string}) {
-  return await fetchSheetData({name})
-}
+import fetchSheetData from '../app/utils/fetch-sheet-data';
 
 export async function fetchById({id}: {id: string}) {
   // !TODO fix this
