@@ -1,4 +1,4 @@
-const { google } = require('googleapis');
+import {google} from 'googleapis';
 import client from './google-client';
 import { PersonData } from './types';
 const KeysInHebrewToEnglish: {[key: string]: string} = {
