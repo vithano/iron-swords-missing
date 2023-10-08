@@ -1,6 +1,6 @@
 const { google } = require('googleapis');
 import client from './google-client';
-import { SheetData } from './types';
+import { PersonData } from './types';
 const KeysInHebrewToEnglish: {[key: string]: string} = {
   'שם פרטי': 'firstName',
   'שם משפחה': 'lastName',
@@ -14,7 +14,7 @@ const KeysInHebrewToEnglish: {[key: string]: string} = {
   'הערות': 'notes',
 } as const;
 
-export default async function fetchSheetData({name}: {name: string}):Promise<[SheetData]> {
+export default async function fetchSheetData({name}: {name: string}):Promise<[PersonData]> {
   const sheets = google.sheets({ version: 'v4', auth: client });
   const spreadsheetId = process.env.SPREAD_SHEET_ID!;
   const sheetName = 'Sheet1';
@@ -35,9 +35,9 @@ export default async function fetchSheetData({name}: {name: string}):Promise<[Sh
   const keys = rows[0];
   const keysInEnglish = keys.map((key: string) => KeysInHebrewToEnglish[key]);
   const fuzzyFoundRowsWithKeys = fuzzyFoundRows.map((row: any) => {
-    const rowWithKeys:Partial<SheetData> = {};
+    const rowWithKeys:Partial<PersonData> = {};
     keysInEnglish.forEach((key: string, i: number) => {
-      rowWithKeys[key as keyof SheetData] = row[i];
+      rowWithKeys[key as keyof PersonData] = row[i];
     });
     return rowWithKeys;
   });
