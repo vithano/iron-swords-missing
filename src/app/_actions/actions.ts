@@ -1,6 +1,6 @@
 'use server'
 
-import fetchSheetData from './utils/fetch-sheet-data';
+import fetchSheetData from '../utils/fetch-sheet-data';
 
 export async function fetchData({name}: {name: string}) {
   return await fetchSheetData({name})
