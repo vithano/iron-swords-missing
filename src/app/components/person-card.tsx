@@ -12,6 +12,15 @@ import PersonData from "../utils/types";
 
 export function PersonCard(data: PersonData) {
     const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status} = data
+    let formattedImage = image || '/no-image.png'; 
+    if(image){
+        console.log(image);
+        if(image.includes('file/d/')){
+            console.log('includes',formattedImage)
+            formattedImage = image.replace('file/d/', 'thumbnail?id=')
+            formattedImage = formattedImage.replace('/view?usp=drive_link', '')
+        }
+    }
     return (
         <Card className="w-[350px] text-right" >
             <CardHeader>
@@ -21,7 +30,7 @@ export function PersonCard(data: PersonData) {
             <CardContent>
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
-                            <Image className="aspect-[14/13] w-full rounded-2xl object-cover"  src={image} alt="person image" />
+                            <Image className="aspect-[14/13] w-full rounded-2xl object-cover" height={150} width={150} src={formattedImage} alt="person image" />
                         </div>
                     </div>
             </CardContent>

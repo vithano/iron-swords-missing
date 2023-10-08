@@ -14,7 +14,8 @@ const KeysInHebrewToEnglish: {[key: string]: string} = {
   'הערות': 'notes',
 } as const;
 
-export default async function fetchSheetData({name}: {name: string}):Promise<[PersonData]> {
+export default async function fetchSheetData({name}: {name: string}):Promise<[PersonData] | []> {
+  if(!name) return [];
   const sheets = google.sheets({ version: 'v4', auth: client });
   const spreadsheetId = process.env.SPREAD_SHEET_ID!;
   const sheetName = 'Sheet1';
