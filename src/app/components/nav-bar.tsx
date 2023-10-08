@@ -7,8 +7,8 @@ import Image from "next/image"
 import {AddMissing} from './add-missing';
 
 const navigation = [
-    {name: 'שאלות תשובות', href: '#'},
-    {name: 'עלינו', href: '#'},
+    {name: 'שאלות תשובות', href: '/faq'},
+    {name: 'עלינו', href: '/about'},
 ]
 
 export default function NavBar() {
