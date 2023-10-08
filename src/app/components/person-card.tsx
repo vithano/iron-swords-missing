@@ -12,7 +12,10 @@ import PersonData from "../utils/types";
 import {sanitizeImageUrl} from "@/lib/utils";
 
 export function PersonCard(data: PersonData) {
-    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status} = data
+    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status, id} = data
+    const subject = `היי, ראיתי אדם שנראה לאחרונה ואשמח אם תצרי איתי קשר לגבי ` + ` ${firstName} ${lastName} ${id}`;
+    const email = 'ironswordsoperation@gmail.com';
+    const emailToAdmin = `mailto:${email}?subject=${subject}`;
     return (
         <Card className="w-[350px] text-right" >
             <CardHeader>
@@ -35,7 +38,8 @@ export function PersonCard(data: PersonData) {
                 onClick={() => window.open(`https://wa.me/+972${contactPhone}?text=היי%20אני%20רוצה%20לדווח%20על%20אדם%20שנראה%20לאחרונה%20אשמח%20אם%20תצרי%20איתי%20קשר%20לגבי%20זה`, '_blank')}
                 >צור קשר</Button> */}
                 <Button 
-                onClick={()=> window.open(`mailto:ironswordsoperation@gmail.com`)}
+                
+                onClick={()=> window.open(emailToAdmin)}
                 variant="outline">עדכן אותנו</Button>
             </CardFooter>
         </Card>
