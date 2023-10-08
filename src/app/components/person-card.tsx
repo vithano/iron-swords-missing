@@ -19,7 +19,7 @@ export const sanitizeImageUrl = (url: string) => {
         return `https://drive.google.com/uc?export=view&id=${id}`
     }
 
-    return url;
+    return url || '/no-image.png';
 }
 
 export function PersonCard(data: PersonData) {
