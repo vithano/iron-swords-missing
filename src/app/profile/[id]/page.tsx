@@ -5,8 +5,54 @@ import {fetchById} from "@/actions";
 import Link from "next/link";
 import StatusPill from "../../../components/status-pill";
 import Head from "next/head";
-
-
+import { Metadata } from "next";
+interface PageProps {
+    params: {
+      id: string
+    }
+  }
+export async function generateMetadata({
+    params,
+  }: PageProps): Promise<Metadata> {
+    const data = await fetchById(params)
+  
+    if (!data) {
+      return {}
+    }
+  
+    const img = sanitizeImageUrl(data.image)
+  
+    const ogUrl = new URL(`https://iron-swords-missing.vercel.app/profile/${params.id}}`)
+    ogUrl.searchParams.set("title", `${data.firstName} ${data.lastName}`)
+    ogUrl.searchParams.set("type", "article")
+    ogUrl.searchParams.set("mode", "light")
+  
+    return {
+      title: `${data.firstName} ${data.lastName} - חרבות ברזל - איתור ועדכון נעדרים`,
+      description: `${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`,
+      openGraph: {
+        title: `${data.firstName} ${data.lastName}`,
+        description:`${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`,
+        type: "article",
+        url: ogUrl.toString(),
+        images: [
+          {
+            url: img,
+            width: 1200,
+            height: 630,
+            alt: `${data.firstName} ${data.lastName}`,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${data.firstName} ${data.lastName}`,
+        description: `${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`,
+        images: [img],
+      },
+    }
+  }
+  
 export default async function Page({params}: {params: {id: string}}) {
     const {id} = params;
     const data = await fetchById({id});
