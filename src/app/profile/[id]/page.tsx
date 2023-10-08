@@ -41,13 +41,13 @@ export default async function Page({params}: {params: {id: string}}) {
                         <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
                             <h2 className="sr-only">Image</h2>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8 place-items-center">
                                 <img                                    
                                     src={imgUrl}
                                     alt={firstName}
                                     className={cn(
-                                        'lg:col-span-2 lg:row-span-2',
-                                        'rounded-lg'
+                                        'lg:col-span-2 lg:row-span-2 border-solid border-gray-500 rounded-lg',
+                                        
                                     )}
                                 />
                             </div>
