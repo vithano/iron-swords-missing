@@ -1,6 +1,7 @@
 ## Operation Iron Swords 23' - Missing List
 
-![logo](./public/logo.jpg)
+<img src="./public/logo.jpg" width="200" height="200"/>
+"
 
 
 
