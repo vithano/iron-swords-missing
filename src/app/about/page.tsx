@@ -7,7 +7,7 @@ export default function About() {
   const emailToAdmin = `mailto:${email}`;
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24" style={{direction:'rtl'}}>
-    <div className={"max-w-[400px] bg-white shadow flex flex-col my-4 p-6"}>
+    <div className={"max-w-[400px] bg-inherit shadow flex flex-col my-4 p-6"}>
     <p className={"text-xl font-semibold pb-5"}>עלינו</p>
     <p className={"pb-2"}>האתר נועד לעזור ולאתר את הנעדרים של מלחמת חרבות ברזל
     האתר נבנה ללא מטרות רווח והוא פתוח לשימוש חופשי

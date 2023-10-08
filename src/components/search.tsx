@@ -11,7 +11,6 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
   }, 500);
 
   return (
-    <div>
       <Input
         dir='rtl'
         type="search"
@@ -19,6 +18,5 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
         className="md:w-[100px] lg:w-[300px]"
         onChange={(e) => handleSearch(e.target.value)}
       />
-    </div>
   );
 }

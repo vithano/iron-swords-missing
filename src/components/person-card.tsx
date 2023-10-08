@@ -27,10 +27,11 @@ export function PersonCard(data: PersonData) {
                 <CardContent>
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
-                            <Image className="aspect-[14/13] w-full rounded-2xl object-fill cursor-pointer"
+                            <Image className="aspect-[14/13] w-full rounded-2xl object-cover cursor-pointer"
                                 width={350}
                                 height={350}
-                                onClick={() => window.open(image, '_blank')}
+                                unoptimized={true}
+                                style={{objectPosition:'0 22%'}}
                                 src={sanitizeImageUrl(image)} alt="person image" />
                         </div>
                     </div>

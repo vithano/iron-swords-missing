@@ -11,21 +11,20 @@ export default function Home() {
   const [data, setData] = useState<(PersonData)[]>([]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/* <MainNav /> */}
-      <div className="flex items-center gap-10 p-24">
-        <Search setData={setData}/>
-      </div>
-      <SearchResults data={data} />
+    <main className="flex flex-col min-h-screen p-4 sm:p-24">
       {data.length == 0 && <Image
-        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert self-center"
         src="/logo.jpg"
         alt="Next.js Logo"
         width={180}
         height={37}
         priority
       />}
-
+    <div className="flex min-h-screen flex-col items-center justify-between p-4 sm:p-24">
+      {/* <MainNav /> */}
+      <Search setData={setData}/>
+      <SearchResults data={data} />
+    </div>
     </main>
   )
 }
