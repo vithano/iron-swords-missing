@@ -1,6 +1,6 @@
 'use client'
 import {Input} from "@/components/ui/input";
-import fetchData from "../actions";
+import {fetchData} from "../actions";
 import PersonData from "../utils/types";
 import {debounce} from "@/lib/utils";
 
