@@ -66,9 +66,10 @@ export default function NavBar() {
                         <a href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Your Company</span>
                             <Image
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                alt=""
+                                src="/logo.jpg"
+                                alt="Next.js Logo"
+                                width={40}
+                                height={40}
                             />
                         </a>
                         <button
