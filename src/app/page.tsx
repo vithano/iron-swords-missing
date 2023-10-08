@@ -11,7 +11,7 @@ export default function Home() {
   const [data, setData] = useState<(PersonData)[]>([]);
 
   return (
-    <main className="flex flex-col min-h-screen p-4 sm:p-24">
+    <main className="flex flex-col min-h-screen p-4 sm:p-16">
       {data.length == 0 && <Image
         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert self-center"
         src="/logo.jpg"
@@ -20,7 +20,7 @@ export default function Home() {
         height={37}
         priority
       />}
-    <div className="flex min-h-screen flex-col items-center justify-between p-4 sm:p-24">
+    <div className="flex min-h-screen flex-col items-center justify-between p-4 sm:p-16">
       {/* <MainNav /> */}
       <Search setData={setData}/>
       <SearchResults data={data} />
