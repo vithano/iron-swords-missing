@@ -6,7 +6,7 @@ export type PersonData = {
   image: string;
   contactName: string;
   contactPhone: string;
-  status: string;
+  status: string; //"unknown" | "found" | "deceased" | "kidnapped";
   lastSeen: string;
   identifyingDetails: string;
   notes: string;
