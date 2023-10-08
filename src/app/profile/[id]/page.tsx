@@ -4,6 +4,7 @@ import Image from "next/image"
 import {fetchById} from "@/actions";
 import Link from "next/link";
 import StatusPill from "../../../components/status-pill";
+import Head from "next/head";
 
 
 export default async function Page({params}: {params: {id: string}}) {
@@ -12,12 +13,16 @@ export default async function Page({params}: {params: {id: string}}) {
     
     // go to home page if no data
     if(!data) {
-        return <Link className="text-center text-white" href={"/"}>לא נמצא</Link>
+        return <Link className="w-100 self-center text-center text-white" href={"/"}>לא נמצא</Link>
     }
 
     const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status} = data;
-
+    const imgUrl = sanitizeImageUrl(image);
     return (
+        <>
+        <Head>
+        <meta property="og:image" content={imgUrl} />
+      </Head>
         <div className="text-right text-white" dir="rtl">
             <div className="pb-16 pt-6 sm:pb-24">
                 <div className="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -38,7 +43,7 @@ export default async function Page({params}: {params: {id: string}}) {
 
                             <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
                                 <img                                    
-                                    src={sanitizeImageUrl(image)}
+                                    src={imgUrl}
                                     alt={firstName}
                                     className={cn(
                                         'lg:col-span-2 lg:row-span-2',
@@ -80,5 +85,6 @@ export default async function Page({params}: {params: {id: string}}) {
                 </div>
             </div>
         </div>
+        </>
     )
 }

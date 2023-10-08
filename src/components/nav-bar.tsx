@@ -93,6 +93,9 @@ export default function NavBar() {
                                         {item.name}
                                     </Link>
                                 ))}
+                                 <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={()=>mailAdmin()}>
+                                    צור קשר     
+                                </a>
                             </div>
                             <div className="py-6">
                                 <a
