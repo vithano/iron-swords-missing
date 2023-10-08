@@ -1,13 +1,13 @@
 "use client";
 
-import {useState} from 'react'
-import {Dialog} from '@headlessui/react'
-import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
-import Image from "next/image"
-import {AddMissing} from './add-missing';
+import {mailAdmin} from '@/lib/utils';
+import {Dialog} from '@headlessui/react';
+import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline';
+import Image from "next/image";
 import Link from 'next/link';
-import { Button } from './ui/button';
-import { mailAdmin } from '@/lib/utils';
+import {useState} from 'react';
+import {AddMissing} from './add-missing';
+
 
 const navigation = [
     {name: 'עלינו', href: '/about'},
@@ -25,14 +25,14 @@ export default function NavBar() {
                 </div>
 
                 <div className="hidden lg:flex lg:gap-x-12 ">
+                    <Link href="#" key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer" onClick={() => mailAdmin()}>
+                        צור קשר
+                    </Link>
                     {navigation.map((item) => (
                         <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-white">
                             {item.name}
                         </a>
                     ))}
-                    <a key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer" onClick={()=>mailAdmin()}>
-                        צור קשר
-                    </a>
                 </div>
                 <div className="flex lg:flex-1 lg:justify-end">
                     <Link href="/" className="-m-1.5 p-1.5">
@@ -93,8 +93,8 @@ export default function NavBar() {
                                         {item.name}
                                     </Link>
                                 ))}
-                                 <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={()=>mailAdmin()}>
-                                    צור קשר     
+                                <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={() => mailAdmin()}>
+                                    צור קשר
                                 </a>
                             </div>
                             <div className="py-6">
