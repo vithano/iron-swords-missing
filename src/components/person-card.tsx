@@ -18,16 +18,17 @@ export function PersonCard(data: PersonData) {
     const email = 'ironswordsoperation@gmail.com';
     const emailToAdmin = `mailto:${email}?subject=${subject}`;
     return (
-        <Link href={`/profile/${id}`}>
+        
             <Card className="w-[350px] text-right" >
                 <CardHeader>
                     <CardTitle>{firstName} {lastName} </CardTitle>
                     <CardDescription>נראה לאחרונה {lastSeen}</CardDescription>
                 </CardHeader>
+                <Link href={`/profile/${id}`}>
                 <CardContent>
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
-                            <Image className="aspect-[14/13] w-full rounded-2xl object-cover cursor-pointer"
+                            <Image className="aspect-[14/13] dark:drop-shadow-[0_0_0.25rem_#ffffff70] w-full rounded-2xl object-cover cursor-pointer"
                                 width={350}
                                 height={350}
                                 unoptimized={true}
@@ -36,16 +37,19 @@ export function PersonCard(data: PersonData) {
                         </div>
                     </div>
                 </CardContent>
+                </Link>
                 <CardFooter className="flex justify-between">
                     {/* <Button 
                 onClick={() => window.open(`https://wa.me/+972${contactPhone}?text=היי%20אני%20רוצה%20לדווח%20על%20אדם%20שנראה%20לאחרונה%20אשמח%20אם%20תצרי%20איתי%20קשר%20לגבי%20זה`, '_blank')}
                 >צור קשר</Button> */}
                     <Button
-
                         onClick={() => window.open(emailToAdmin)}
                         variant="outline">עדכן אותנו</Button>
+                    <span>
+                    סטטוס : {status}
+                    </span>
+
                 </CardFooter>
             </Card>
-        </Link>
     )
 }

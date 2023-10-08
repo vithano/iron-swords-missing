@@ -8,9 +8,7 @@ import {AddMissing} from './add-missing';
 import Link from 'next/link';
 
 const navigation = [
-    {name: 'צור קשר', href: '/contact'},
     {name: 'עלינו', href: '/about'},
-    {name: 'שאלות תשובות', href: '/faq'},
 ]
 
 export default function NavBar() {
