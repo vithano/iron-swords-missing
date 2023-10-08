@@ -2,12 +2,16 @@ import {cn, sanitizeImageUrl} from "@/lib/utils";
 
 
 import {fetchById} from "@/actions";
+import Link from "next/link";
 
 
 export default async function Page({params}: {params: {id: string}}) {
     const {id} = params;
     const data = await fetchById({id});
-
+    // go to home page if no data
+    if(!data) {
+        return <Link className="text-center text-white" href={"/"}>לא נמצא</Link>
+    }
     const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status} = data;
 
     return (
@@ -48,7 +52,7 @@ export default async function Page({params}: {params: {id: string}}) {
                                 >
                                     <p> שם : {firstName} {lastName}</p>
                                     <p> סטטוס : {status}</p>
-                                    <p> נצפה לארחונה : {lastSeen}</p>
+                                    <p> נצפה לאחרונה : {lastSeen}</p>
                                 </div>
                             </div>
 
