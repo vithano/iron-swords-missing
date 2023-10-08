@@ -9,18 +9,8 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import PersonData from "../utils/types";
+import {sanitizeImageUrl} from "@/lib/utils";
 
-export const sanitizeImageUrl = (url: string) => {
-    if (url.includes('https://drive.google.com/')) {
-        const id = url
-            .replace('https://drive.google.com/file/d/', '')
-            .replace('/view?usp=sharing', '')
-            .replace('/view?usp=drive_link', '')
-        return `https://drive.google.com/uc?export=view&id=${id}`
-    }
-
-    return url || '/no-image.png';
-}
 
 export function PersonCard(data: PersonData) {
     const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status} = data
@@ -34,7 +24,8 @@ export function PersonCard(data: PersonData) {
                 <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
                         <Image className="aspect-[14/13] w-full rounded-2xl object-cover"
-                            fill
+                            width={350}
+                            height={350}
                             src={sanitizeImageUrl(image)} alt="person image" />
                     </div>
                 </div>
