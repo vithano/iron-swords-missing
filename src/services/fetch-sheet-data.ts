@@ -31,7 +31,7 @@ export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
 
   const rows = res.data.valueRanges?.[0].values ?? [];
   const fuzzyFoundRows = name ? rows.slice(1).filter((row: any) =>
-    row.slice(0, 2).some((cell: any) => cell.includes(name))
+    row.slice(1, 3).some((cell: any) => cell.includes(name))
   ) : rows;
 
   // turn rows into an array of objects

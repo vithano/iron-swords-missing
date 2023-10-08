@@ -22,3 +22,8 @@ export const sanitizeImageUrl = (url: string) => {
 
   return url || '/no-image.png';
 }
+
+export const mailAdmin = (subject = '', body = '') => {
+  const adminMail = 'ironswordsoperation@gmail.com';
+  window.open(`mailto:${adminMail}?subject=${subject}&body=${body}`);
+}
