@@ -6,9 +6,12 @@ import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import Image from "next/image"
 import {AddMissing} from './add-missing';
 import Link from 'next/link';
+import { Button } from './ui/button';
+import { mailAdmin } from '@/lib/utils';
 
 const navigation = [
     {name: 'עלינו', href: '/about'},
+    {name: 'שאלות נפוצות', href: '/faq'},
 ]
 
 export default function NavBar() {
@@ -27,6 +30,9 @@ export default function NavBar() {
                             {item.name}
                         </a>
                     ))}
+                    <a key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer" onClick={()=>mailAdmin()}>
+                        צור קשר
+                    </a>
                 </div>
                 <div className="flex lg:flex-1 lg:justify-end">
                     <Link href="/" className="-m-1.5 p-1.5">
