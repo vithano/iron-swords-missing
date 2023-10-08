@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const hasTitle = searchParams.has('title');
     const title = hasTitle
         ? searchParams.get('title')?.slice(0, 100)
-        : 'Iron Source - Missing Victims of terror';
+        : 'Iron Source - Missing victims of terror';
 
 
     return new ImageResponse(
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
                     alignItems: 'center',
                 }}
             >
-                <img width="256" height="256" src={image} />
+                <img width="256" height="256" src={image as unknown as string} alt="logo"/>
                 <div
                     style={{
                         fontSize: 40,
