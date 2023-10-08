@@ -14,18 +14,21 @@ import Link from "next/link";
 import StatusPill from "./status-pill";
 
 export function PersonCard(data: PersonData) {
-    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status, id} = data
+
+    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status, id} = data;
+
     const subject = `היי, ראיתי אדם שנראה לאחרונה ואשמח אם תצרי איתי קשר לגבי ` + ` ${firstName} ${lastName} ${id}`;
+
     return (
 
-        <Card className="w-[350px] text-right" >
-            <CardHeader>
-                <CardTitle>{firstName} {lastName}
-                </CardTitle>
-                <CardDescription>נראה לאחרונה {lastSeen}</CardDescription>
-            </CardHeader>
+        <Link href={`/profile/${id}`}>
+            <Card className="w-[350px] text-right" >
+                <CardHeader>
+                    <CardTitle>{firstName} {lastName}
+                    </CardTitle>
+                    <CardDescription>נראה לאחרונה {lastSeen}</CardDescription>
+                </CardHeader>
 
-            <Link href={`/profile/${id}`}>
                 <CardContent>
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
@@ -39,16 +42,16 @@ export function PersonCard(data: PersonData) {
                         </div>
                     </div>
                 </CardContent>
-            </Link>
-            <CardFooter className="flex justify-between">
-                <Button
-                    onClick={() => mailAdmin(subject)}
-                    variant="outline">עדכן אותנו</Button>
-                <span>
-                <StatusPill status={status}  />
-                </span>
+                <CardFooter className="flex justify-between">
+                    <Button
+                        onClick={() => mailAdmin(subject)}
+                        variant="outline">עדכן אותנו</Button>
+                    <span>
+                        <StatusPill status={status} />
+                    </span>
 
-            </CardFooter>
-        </Card>
+                </CardFooter>
+            </Card>
+        </Link>
     )
 }
