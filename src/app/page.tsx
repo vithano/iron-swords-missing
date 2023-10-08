@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import {MainNav} from './components/main-nav'
 import {Search} from './components/search'
-import { AddMissing } from './components/addMissing'
+import { AddMissing } from './components/add-missing'
 import { useState } from 'react';
 import PersonData from './utils/types';
 import { SearchResults } from './components/searchResults';
