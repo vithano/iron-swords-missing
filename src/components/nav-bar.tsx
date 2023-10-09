@@ -18,11 +18,13 @@ export default function NavBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="bg-gray-900">
+        <header className="bg-gray-900" dir="ltr">
+
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div className="hidden lg:flex lg:flex-1 ">
+                <div className="hidden lg:flex lg:flex-1  ">
                     <AddMissing />
                 </div>
+
 
                 <div className="hidden lg:flex lg:gap-x-12 ">
                     <Link href="#" key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer" onClick={() => mailAdmin()}>
@@ -34,6 +36,7 @@ export default function NavBar() {
                         </a>
                     ))}
                 </div>
+
                 <div className="flex lg:flex-1 lg:justify-end">
                     <Link href="/" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
@@ -47,6 +50,8 @@ export default function NavBar() {
                         />
                     </Link>
                 </div>
+
+
                 <div className="flex lg:hidden">
                     <button
                         type="button"
@@ -95,8 +100,7 @@ export default function NavBar() {
                                         {item.name}
                                     </Link>
                                 ))}
-                                <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={() => 
-                                {
+                                <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={() => {
                                     mailAdmin();
                                     setMobileMenuOpen(false);
                                 }}>
