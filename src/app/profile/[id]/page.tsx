@@ -24,18 +24,20 @@ export async function generateMetadata({
     }
   
     const img = sanitizeImageUrl(data.image)
-  
-    const ogUrl = new URL(`https://iron-swords-missing.vercel.app/profile/${params.id}}`)
+    const url = "https://ironswords.org.il";
+    const ogUrl = new URL(`${url}/profile/${params.id}}`)
     ogUrl.searchParams.set("title", `${data.firstName} ${data.lastName}`)
     ogUrl.searchParams.set("type", "article")
     ogUrl.searchParams.set("mode", "light")
-  
+    const title = `${data.firstName} ${data.lastName} - חרבות ברזל - איתור ועדכון נעדרים`;
+    const personTitle = `${data.firstName} ${data.lastName}`;
+    const desc = `${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`;
     return {
-      title: `${data.firstName} ${data.lastName} - חרבות ברזל - איתור ועדכון נעדרים`,
-      description: `${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`,
+      title: title,
+      description: desc,
       openGraph: {
-        title: `${data.firstName} ${data.lastName}`,
-        description:`${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`,
+        title: personTitle,
+        description: desc,
         type: "article",
         url: ogUrl.toString(),
         images: [
@@ -43,15 +45,20 @@ export async function generateMetadata({
             url: img,
             width: 1200,
             height: 630,
-            alt: `${data.firstName} ${data.lastName}`,
+            alt: personTitle,
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: `${data.firstName} ${data.lastName}`,
-        description: `${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`,
-        images: [img],
+        title: personTitle,
+        description: desc,
+        images: [{
+            url: img,
+            width: 1200,
+            height: 630,
+            alt: personTitle,
+          }],
       },
     }
   }
