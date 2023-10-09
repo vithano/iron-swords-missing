@@ -42,7 +42,6 @@ export async function fetchDbData(props?: Props): Promise<PersonData[]> {
     lastSeen: last_seen,
     notes,
     status,
-    missingPhone: ''
   })) ?? []
 
 

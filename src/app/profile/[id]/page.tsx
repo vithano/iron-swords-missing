@@ -107,7 +107,6 @@ export default async function Page({params}: {params: {id: string}}) {
 
                                 <div className="prose prose-sm mt-4 py-3 space-y-2">
                                     <p> שם : {firstName} {lastName}</p>
-                                    <p> שם : {missingPhone ?? "--"}</p>
                                     <p> נצפה לאחרונה : {lastSeen}</p>
                                     <p> פרטים מזהים : {identifyingDetails ?? "--"}</p>
                                     <p> הערות : {notes ?? "--"}</p>
