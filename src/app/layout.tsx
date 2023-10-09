@@ -9,7 +9,7 @@ const inter = Inter({subsets: ['latin']})
 
 
 export async function generateMetadata(): Promise<Metadata> {
-  const url = "https://iron-swords-missing.vercel.app/"
+  const url = "https://ironswords.org.il/"
   const title = "חרבות ברזל - איתור ועדכון נעדרים";
   const desc = "חרבות ברזל - איתור ועדכון נעדרים";
 
