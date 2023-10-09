@@ -30,13 +30,15 @@
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/validator": "^13.11.2",
     "autoprefixer": "^10",
     "encoding": "^0.1.13",
     "eslint": "^8",
