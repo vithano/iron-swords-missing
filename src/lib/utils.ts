@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const sanitizeImageUrl = (url: string) => {
-  if (url.includes('https://drive.google.com/')) {
+  if (url && url.includes('https://drive.google.com/')) {
     const id = url
       .replace('https://drive.google.com/file/d/', '')
       .replace('/view?usp=sharing', '')
