@@ -15,7 +15,7 @@ import StatusPill from "./status-pill";
 
 export function PersonCard(data: PersonData) {
 
-    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status, id} = data;
+    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, lastSeen, notes, status, id} = data;
 
     const subject = `היי, ראיתי אדם שנראה לאחרונה ואשמח אם תצרי איתי קשר לגבי ` + ` ${firstName} ${lastName} ${id}`;
 

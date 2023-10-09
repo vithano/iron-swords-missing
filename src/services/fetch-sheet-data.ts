@@ -14,42 +14,26 @@ const keyTranslationMap: {[key: string]: string} = {
   'details': 'identifyingDetails',
   'notes': 'notes',
 } as const;
+const endpoint = '/api/supabase';
 
 export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
-  const sheets = google.sheets({version: 'v4', auth: client});
-  const spreadsheetId = process.env.SPREAD_SHEET_ID!;
-  const sheetName = 'Sheet1';
-
-  const res = await sheets.spreadsheets.values.batchGet({
-    spreadsheetId,
-    ranges: [`${sheetName}`],
-    valueRenderOption: 'UNFORMATTED_VALUE',
-    dateTimeRenderOption: 'FORMATTED_STRING',
-    majorDimension: 'ROWS',
-  });
-
-  const rows = res.data.valueRanges?.[0].values ?? [];
-  const fuzzyFoundRows = name ? rows.slice(1).filter((row: any) =>
-    row.slice(1, 3).some((cell: any) => cell.includes(name))
-  ) : rows;
-
-  // turn rows into an array of objects
-  const headers = rows[0];
-  const keysInEnglish = headers.map((key: string) => keyTranslationMap[key]);
-
-  const fuzzyFoundRowsWithKeys = fuzzyFoundRows.map((row: any) => {
-    const rowWithKeys: Partial<PersonData> = {};
-    keysInEnglish.forEach((key: string, i: number) => {
-      rowWithKeys[key as keyof PersonData] = row[i];
+  if(!name) return [];
+  const nameEncoded = encodeURIComponent(name);
+  const response = await fetch(`${endpoint}?name=${nameEncoded}`);
+  const data = await response.json();
+  // translate keys
+  const translatedData = data.map((row: any) => {
+    const translatedRow: any = {};
+    Object.keys(row).forEach((key) => {
+      translatedRow[keyTranslationMap[key]] = row[key];
     });
-    return rowWithKeys as PersonData;
+    return translatedRow;
   });
-
-  return fuzzyFoundRowsWithKeys ?? [];
+  return translatedData;
 }
 
-export default async function fetchSheetData({name}: {name: string}): Promise<PersonData[]> {
+export async function fetchSheetData({ name }: { name: string }): Promise<PersonData[]> {
   if (!name) return [];
-
   return await fetchAllSheetData(name);
 }
+export default fetchSheetData;

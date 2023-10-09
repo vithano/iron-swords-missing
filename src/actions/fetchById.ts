@@ -1,11 +1,7 @@
 'use server'
-
-import {fetchAllSheetData} from '@/services/fetch-sheet-data';
-
+const apiEndpoint = '/api/supabase';
 export async function fetchById({id}: {id: string}) {
-  // !TODO fix this
-  const res = await fetchAllSheetData();
-  const profile = res.filter((person) => person.id == id);
-  
-  return profile[0];
+  const response = await fetch(`${apiEndpoint}?id=${id}`);
+  const data = await response.json();
+  return data[0];
 }
