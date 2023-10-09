@@ -1,7 +1,7 @@
 'use server'
 
-import {fetchDbData} from '@/services/fetch-db-data';
+import fetchSheetData from '@/services/fetch-sheet-data';
 
 export async function fetchData({name}: {name: string}) {
-  return await fetchDbData({name})
+  return await fetchSheetData({name})
 }

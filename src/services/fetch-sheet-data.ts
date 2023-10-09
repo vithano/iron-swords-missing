@@ -1,18 +1,6 @@
 import {PersonData} from '../app/utils/types';
-import { getBaseUrl } from '@/lib/utils';
+import { getBaseUrl, translateKeys } from '@/lib/utils';
 
-const keyTranslationMap: {[key: string]: string} = {
-  'id': 'id',
-  'first_name': 'firstName',
-  'last_name': 'lastName',
-  'image': 'image',
-  'contact_name': 'contactName',
-  'contact_phone': 'contactPhone',
-  'status': 'status',
-  'last_seen': 'lastSeen',
-  'details': 'identifyingDetails',
-  'notes': 'notes',
-} as const;
 const endpoint = `${getBaseUrl()}/api/supabase`;
 export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
   if(!name) return [];
@@ -20,13 +8,7 @@ export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
   const response = await fetch(`${endpoint}?name=${nameEncoded}`);
   const data = await response.json();
   // translate keys
-  const translatedData = data.map((row: any) => {
-    const translatedRow: any = {};
-    Object.keys(row).forEach((key) => {
-      translatedRow[keyTranslationMap[key]] = row[key];
-    });
-    return translatedRow;
-  });
+  const translatedData = translateKeys(data);
   return translatedData;
 }
 
