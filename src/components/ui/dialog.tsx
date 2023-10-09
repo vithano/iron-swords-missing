@@ -113,8 +113,9 @@ const Dialog = (props: DialogProps) => {
               <DialogPrimitive.Close
                 className={clsx(
                   "absolute top-3.5 right-3.5 inline-flex items-center justify-center rounded-full p-1",
-                  "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 end-auto"
+                  "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
                 )}
+                style={{insetInlineEnd:'auto'}}
               >
                 <span className="h-4 w-4 text-gray-500 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-400" >X</span>
               </DialogPrimitive.Close>
