@@ -3,11 +3,14 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+    isLoading?: boolean
+  }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, isLoading, ...props }, ref) => {
     return (
+      <div className="relative">
       <input
         type={type}
         className={cn(
@@ -17,6 +20,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         {...props}
       />
+      {isLoading && (
+      <div className="absolute inset-y-0 left-0 pl-8 flex items-center">
+        <div className={"inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"} role="status"></div>
+      </div>
+    )}
+    </div>
     )
   }
 )

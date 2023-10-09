@@ -5,15 +5,19 @@ import PersonData from "../app/utils/types";
 import { useRef } from "react";
 import debounce  from "lodash.debounce";
 import { useCallback } from "react";
+import { useState } from "react";
 export function Search({setData}: {setData: (data: PersonData[]) => void}) {
   const inputValueRef = useRef('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const debouncedSearch = useCallback(
     debounce(async () => {
       const name = inputValueRef.current;
       if (name) {
+        setIsLoading(true);
         const result = await fetchData({ name });
         setData(result);
+        setIsLoading(false);
       }
     }, 250),
     []
@@ -31,12 +35,13 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
   }
 
   return (
-      <Input
-        dir='rtl'
-        type="search"
-        placeholder="שם  פרטי / שם משפחה ..."
-        className="md:w-[100px] lg:w-[300px]"
-        onChange={onInputChange}
-      />
+    <Input
+      dir='rtl'
+      type="search"
+      placeholder="שם / שם משפחה / טלפון ..."
+      className="md:w-[100px] lg:w-[300px]"
+      onChange={onInputChange}
+      isLoading={isLoading}
+    />
   );
 }
