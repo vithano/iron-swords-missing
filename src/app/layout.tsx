@@ -10,6 +10,16 @@ const inter = Inter({subsets: ['latin']})
 export const metadata: Metadata = {
   title: ' חרבות ברזל - איתור ועדכון נעדרים',
   description: ' חרבות ברזל - איתור ועדכון נעדרים',
+  openGraph: {
+    images: [
+      {
+        url: 'https://iron-swords-missing.vercel.app/logo.jpg',
+        width: 1024,
+        height: 1024,
+        alt: 'Iron Swords',
+      },
+    ],
+  }
 }
 
 export default function RootLayout({
