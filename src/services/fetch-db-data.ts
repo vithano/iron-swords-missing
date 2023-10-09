@@ -1,19 +1,6 @@
 import {PersonData} from '../app/utils/types';
 import supabase from './supabase';
 
-const keyTranslationMap: {[key: string]: string} = {
-  'id': 'id',
-  'first_name': 'firstName',
-  'last_name': 'lastName',
-  'image': 'image',
-  'contact_name': 'contactName',
-  'contact_phone': 'contactPhone',
-  'status': 'status',
-  'last_seen': 'lastSeen',
-  'details': 'identifyingDetails',
-  'notes': 'notes',
-} as const;
-
 type Props = {
   name?: string;
   id?: string;
@@ -21,15 +8,24 @@ type Props = {
 
 export async function fetchDbData(props?: Props): Promise<PersonData[]> {
   const {name, id} = props ?? {name: '', id: null}
+  const isFullname = name?.includes(' ');
+  const firstName = (isFullname ? name?.split(' ')[0] : name)?.trim();
+  const lastName = (isFullname ? name?.split(' ')[1] : name)?.trim();
+  
+  if(!firstName && !lastName && !id) return [];
 
-  const {data = []} = await
-    supabase
+  const nameQuery = `first_name.ilike.%${firstName}%,last_name.ilike.%${lastName}%`;
+  const idQuery = id ? `id.eq.${id}` : '';
+  
+  let query = isFullname ? `and(${nameQuery})` : `or(${nameQuery})`;
+  if(id) query = `or(${idQuery})`;
+
+  
+  const { data = [] } = await supabase
       .from('people')
       .select('*')
-      .or(`or(first_name.ilike.%${name}%,last_name.ilike.%${name}%),id.eq.${id}`);
+      .or(query);
       
-
-
   // @ts-ignore
   return data?.map(({id, contact_name, contact_phone, details, first_name, image, last_name, last_seen, notes, status}) => ({
     id,
