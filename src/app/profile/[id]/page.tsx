@@ -62,7 +62,7 @@ export default async function Page({params}: {params: {id: string}}) {
         return <Link className="w-100 self-center text-center text-white" href={"/"}>לא נמצא</Link>
     }
 
-    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, missingPhone, lastSeen, notes, status} = data;
+    const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, lastSeen, notes, status} = data;
     const imgUrl = sanitizeImageUrl(image);
     return (
         <>
