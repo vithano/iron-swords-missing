@@ -43,7 +43,7 @@ export function PersonCard(data: PersonData) {
                         </div>
                     </div>
                 </CardContent>
-                </Link>
+            </Link>
                 <CardFooter className="flex justify-between">
                     <SendEmailToAdminButton subject={subject} />
                     <span>
