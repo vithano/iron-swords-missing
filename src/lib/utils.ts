@@ -19,7 +19,10 @@ export const sanitizeImageUrl = (url: string) => {
 
 export const mailAdmin = (subject = '', body = '') => {
   const adminMail = 'ironswordsoperation@gmail.com';
-  window.open(`mailto:${adminMail}?subject=${subject}&body=${body}`);
+  const subjectEncoded = encodeURIComponent(subject);
+  const bodyEncoded = encodeURIComponent(body);
+  const emailLink = `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${adminMail}&su=${subjectEncoded}&body=${bodyEncoded}`;
+  window.open(emailLink);
 }
 export function getBaseUrl() {
   return process.env.NODE_ENV === 'development'
