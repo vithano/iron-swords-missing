@@ -24,8 +24,8 @@ export async function generateMetadata({
     }
   
     const img = sanitizeImageUrl(data.image)
-  
-    const ogUrl = new URL(`https://iron-swords-missing.vercel.app/profile/${params.id}}`)
+    const url = "https://ironswords.org.il";
+    const ogUrl = new URL(`${url}/profile/${params.id}}`)
     ogUrl.searchParams.set("title", `${data.firstName} ${data.lastName}`)
     ogUrl.searchParams.set("type", "article")
     ogUrl.searchParams.set("mode", "light")

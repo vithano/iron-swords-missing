@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   if(process.env.NODE_ENV === "development") {
     return {}
   }
-  const url = "https://ironswords.org.il/"
+  const url = "https://ironswords.org.il"
   const title = "חרבות ברזל - איתור ועדכון נעדרים";
   const desc = "חרבות ברזל - איתור ועדכון נעדרים";
 
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: desc,
       images: [
         {
-          url: "https://github.com/kaminskypavel/iron-swords-missing/assets/1287098/58dbd3ef-c12a-4ec5-95c2-c08fef6dfa3d",
+          url: ogUrl.toString(),
           width: 1200,
           height: 630,
           alt: title,
