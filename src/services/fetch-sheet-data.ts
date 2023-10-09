@@ -1,6 +1,5 @@
-import {google} from 'googleapis';
-import client from './google-client';
 import {PersonData} from '../app/utils/types';
+import { getBaseUrl } from '@/lib/utils';
 
 const keyTranslationMap: {[key: string]: string} = {
   'id': 'id',
@@ -14,8 +13,7 @@ const keyTranslationMap: {[key: string]: string} = {
   'details': 'identifyingDetails',
   'notes': 'notes',
 } as const;
-const endpoint = '/api/supabase';
-
+const endpoint = `${getBaseUrl()}/api/supabase`;
 export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
   if(!name) return [];
   const nameEncoded = encodeURIComponent(name);

@@ -16,8 +16,7 @@ export async function GET(request: Request) {
     response = await supabase
       .from('people')
       .select('*')
-      .ilike('first_name', `%${name}%`)
-        .or(`last_name.ilike.%${name}%`);
+      .or(`first_name.ilike.%${name}%,last_name.ilike.%${name}%`);
     }
     if(id) {
     response = await supabase

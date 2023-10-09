@@ -21,3 +21,8 @@ export const mailAdmin = (subject = '', body = '') => {
   const adminMail = 'ironswordsoperation@gmail.com';
   window.open(`mailto:${adminMail}?subject=${subject}&body=${body}`);
 }
+export function getBaseUrl() {
+  return process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://your-production-domain.com';
+}
