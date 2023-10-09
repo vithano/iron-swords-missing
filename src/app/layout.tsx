@@ -4,6 +4,7 @@ import {Inter} from 'next/font/google'
 import {ThemeProvider} from "@/components/theme-provider"
 import NavBar from '../components/nav-bar'
 import Footer from '../components/footer'
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({subsets: ['latin']})
 
@@ -61,6 +62,7 @@ export default function RootLayout({
           >
             <NavBar />
             {children}
+            <Analytics />
             <Footer />
           </ThemeProvider>
         </body>

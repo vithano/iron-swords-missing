@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "supabase:gen" : "pnpm dlx supabase gen types typescript --project-id jaqqunzflskbrrwzlglq > src/services/database.types.ts"
+    "supabase:gen": "pnpm dlx supabase gen types typescript --project-id jaqqunzflskbrrwzlglq > src/services/database.types.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -17,6 +17,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/supabase-js": "^2.38.0",
+    "@vercel/analytics": "^1.1.0",
     "axios": "^1.5.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
