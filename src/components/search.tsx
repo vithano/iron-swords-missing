@@ -34,7 +34,7 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
       <Input
         dir='rtl'
         type="search"
-        placeholder="... שם / שם משפחה / טלפון"
+        placeholder="שם  פרטי / שם משפחה ..."
         className="md:w-[100px] lg:w-[300px]"
         onChange={onInputChange}
       />
