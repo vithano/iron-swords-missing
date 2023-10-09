@@ -24,5 +24,5 @@ export const mailAdmin = (subject = '', body = '') => {
 export function getBaseUrl() {
   return process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://your-production-domain.com';
+    : 'https://www.ironswords.org.il';
 }
