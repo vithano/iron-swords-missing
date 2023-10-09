@@ -1,12 +1,10 @@
 'use server'
 
-import {fetchDbData} from '@/services/fetch-db-data';
-
+import { getBaseUrl, translateKeys } from "@/lib/utils";
 const endpoint = `${getBaseUrl()}/api/supabase`;
 export async function fetchById({id}: {id: string}) {
-  // !TODO fix this
-  const res = await fetchDbData();
-  const profile = res.filter((person) => person.id == id);
-  
-  return profile[0];
+  const response = await fetch(`${endpoint}?id=${id}`);
+  const data = await response.json();
+  const translatedData = translateKeys(data);
+  return translatedData[0];
 }
