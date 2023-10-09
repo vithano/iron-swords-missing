@@ -9,7 +9,6 @@ import { SearchResults } from '../components/searchResults';
 
 export default function Home() {
   const [data, setData] = useState<(PersonData)[]>([]);
-
   return (
     <main className="flex flex-col min-h-screen p-4 sm:p-16">
       <h1 className='text-center text-xl pb-8'> עזרה בעיתור נעדרים וחטופים</h1>
