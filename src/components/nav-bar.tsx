@@ -18,11 +18,13 @@ export default function NavBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="bg-gray-900">
+        <header className="bg-gray-900" dir="ltr">
+
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div className="hidden lg:flex lg:flex-1 ">
+                <div className="hidden lg:flex lg:flex-1  ">
                     <AddMissing />
                 </div>
+
 
                 <div className="hidden lg:flex lg:gap-x-12 ">
                     <Link href="#" key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer" onClick={() => mailAdmin()}>
@@ -33,6 +35,16 @@ export default function NavBar() {
                             {item.name}
                         </a>
                     ))}
+                </div>
+                <div className="flex lg:hidden">
+                    <button
+                        type="button"
+                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
+                        onClick={() => setMobileMenuOpen(true)}
+                    >
+                        <span className="sr-only">Open main menu</span>
+                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                    </button>
                 </div>
                 <div className="flex lg:flex-1 lg:justify-end">
                     <Link href="/" className="-m-1.5 p-1.5">
@@ -47,16 +59,7 @@ export default function NavBar() {
                         />
                     </Link>
                 </div>
-                <div className="flex lg:hidden">
-                    <button
-                        type="button"
-                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
-                        onClick={() => setMobileMenuOpen(true)}
-                    >
-                        <span className="sr-only">Open main menu</span>
-                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                </div>
+
             </nav>
 
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -95,8 +98,7 @@ export default function NavBar() {
                                         {item.name}
                                     </Link>
                                 ))}
-                                <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={() => 
-                                {
+                                <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={() => {
                                     mailAdmin();
                                     setMobileMenuOpen(false);
                                 }}>
