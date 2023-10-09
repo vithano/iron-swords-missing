@@ -1,11 +1,11 @@
 import Image from 'next/image'
 
 const navigation = [
-    
+
     {
         name: 'GitHub',
         href: 'https://github.com/kaminskypavel/iron-swords-missing/',
-        icon: (props:any) => (
+        icon: (props: any) => (
             <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
                     fillRule="evenodd"
@@ -33,6 +33,10 @@ export default function Footer() {
                             </a>
                         ))}
                     </div>
+                    <span className="inline-flex items-center rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
+                        עדכון אחרון 09/10/23
+                    </span>
+
                     <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
                         &copy; IronSwords.org.il, Inc. All rights reserved.
                     </p>
