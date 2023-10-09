@@ -1,24 +1,65 @@
 import { Transition } from "@headlessui/react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { clsx } from "clsx";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { Button } from "./button";
+import { Tooltip } from "./tooltip";
+import debounce from "lodash.debounce";
 interface ButtonProps {
-    text: string;
+    text: string | React.ReactNode;
     shouldClose: boolean;
     onClick: () => void;
+    tooltip?: string;
+    variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
 }
 interface DialogProps {
     children: React.ReactNode;
     title: string;
-    description: string;
+    description: string | React.ReactNode;
     primaryButton: ButtonProps;
     secondaryButton?: ButtonProps;
 }
 
 const Dialog = (props: DialogProps) => {
   let [isOpen, setIsOpen] = useState(false);
-
+  const [isOpenPrimaryTooltip, setIsOpenPrimaryTooltip] = useState(undefined);
+  const [isOpenSecondaryTooltip, setIsOpenSecondaryTooltip] = useState(undefined);
+  const onClickPrimaryButton = useCallback(() => {
+    props.primaryButton.onClick();
+    setIsOpenPrimaryTooltip(true as any);
+    debounce(()=>setIsOpenPrimaryTooltip(false as any), 1000)();
+  }, [props.primaryButton]);
+  const onClickSecondaryButton = useCallback(() => {
+    props.secondaryButton?.onClick();
+    setIsOpenSecondaryTooltip(true as any);
+    debounce(()=>setIsOpenSecondaryTooltip(false as any), 1000)();
+  }, [props.secondaryButton]);
+  const PrimaryButtonComponent = props.primaryButton.shouldClose ? DialogPrimitive.Close : Button;
+  const SecondaryButtonComponent = props.secondaryButton ? props.secondaryButton?.shouldClose ? DialogPrimitive.Close : Button : null;
+  const PrimaryButtonStyle = props.primaryButton.shouldClose ? clsx(
+                    "text-white text-primary-foreground h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                  ) : null;
+    const SecondaryButtonStyle = props.secondaryButton ? props.secondaryButton?.shouldClose ? clsx(
+                        "text-white text-primary-foreground h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                    ) : null : null;
+    const PrimaryButton = <PrimaryButtonComponent
+                onClick={onClickPrimaryButton}
+                  className={PrimaryButtonStyle ?? ''}
+                  variant={props.primaryButton.variant ?? 'outline'}
+                >
+                  {props.primaryButton.text}
+                </PrimaryButtonComponent>;
+    const SecondaryButton = props.secondaryButton && SecondaryButtonComponent ? <SecondaryButtonComponent
+                onClick={onClickSecondaryButton}
+                  className={SecondaryButtonStyle ?? ''}
+                  variant={props.secondaryButton.variant ?? 'outline'}
+                >
+                  {props.secondaryButton.text}
+                </SecondaryButtonComponent> : null;
+    
+    
+    const PrimaryButtonWithTooltip = props.primaryButton.tooltip ? <Tooltip open={isOpenPrimaryTooltip} content={props.primaryButton.tooltip}>{PrimaryButton}</Tooltip> : PrimaryButton;
+    const SecondaryButtonWithTooltip = props.secondaryButton?.tooltip ? <Tooltip open={isOpenSecondaryTooltip} content={props.secondaryButton.tooltip}>{SecondaryButton}</Tooltip> : SecondaryButton;
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
       <DialogPrimitive.Trigger asChild>
@@ -66,26 +107,8 @@ const Dialog = (props: DialogProps) => {
                 {props.description}
               </DialogPrimitive.Description>
               <div className={`mt-4 flex ${props.secondaryButton? 'justify-between' : 'justify-end'}`}>
-                {props.primaryButton.shouldClose ? <DialogPrimitive.Close
-                onClick={props.primaryButton.onClick}
-                  className={clsx(
-                    "text-white text-primary-foreground h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
-                  )}
-                >
-                  {props.primaryButton.text}
-                </DialogPrimitive.Close> : <Button onClick={props.primaryButton.onClick} variant="outline">
-                  {props.primaryButton.text}
-                </Button>}
-              {props.secondaryButton ? props.secondaryButton.shouldClose ? <DialogPrimitive.Close
-                onClick={props.secondaryButton.onClick}
-                  className={clsx(
-                    "text-white text-primary-foreground h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
-                  )}
-                >
-                    {props.secondaryButton?.text}
-                </DialogPrimitive.Close> : <Button onClick={props.secondaryButton.onClick} variant="secondary">
-                    {props.secondaryButton.text}
-                </Button> : null}
+                {PrimaryButtonWithTooltip}
+                {SecondaryButtonWithTooltip}
               </div>
               <DialogPrimitive.Close
                 className={clsx(
