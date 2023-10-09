@@ -5,7 +5,7 @@ import {ImageResponse} from 'next/server';
 export const runtime = 'edge';
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
+    const {searchParams} = new URL(request.url);
     const image = await fetch(new URL('./logo.jpg', import.meta.url)).then(
         (res) => res.arrayBuffer(),
     );
@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const hasTitle = searchParams.has('title');
     const title = hasTitle
         ? searchParams.get('title')?.slice(0, 100)
-        : 'Iron Source - Missing victims of terror';
+        : 'IronSwords.org.il - ' + "איתור ועדכון נעדרים וחטופים".split("").reverse().join("");
 
 
     return new ImageResponse(
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
                     alignItems: 'center',
                 }}
             >
-                <img width="256" height="256" src={image as unknown as string} alt="logo"/>
+                <img width="256" height="256" src={image as unknown as string} alt="logo" />
                 <div
                     style={{
                         fontSize: 40,
@@ -40,6 +40,7 @@ export async function GET(request: Request) {
                         padding: '0 120px',
                         lineHeight: 1.4,
                         whiteSpace: 'pre-wrap',
+                        backgroundColor: "#f93c3c",
                     }}
                 >
                     {title}
