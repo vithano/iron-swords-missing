@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     .from('people')
     .select('id')
   
-    console.log(111,{data, error});
+    console.log(111,{data, error},process.env.SUPABASE_URL,process.env.SUPABASE_ANON_KEY);
     return new Response(JSON.stringify(data), {
         headers: {
             'content-type': 'application/json;charset=UTF-8',
