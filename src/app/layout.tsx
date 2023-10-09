@@ -61,7 +61,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <html lang="he" dir="rtl" suppressHydrationWarning >
+      <html lang="en" suppressHydrationWarning >
         <body>
           <ThemeProvider
             attribute="class"
