@@ -2,18 +2,17 @@ import {google} from 'googleapis';
 import client from './google-client';
 import {PersonData} from '../app/utils/types';
 
-const KeysInHebrewToEnglish: {[key: string]: string} = {
-  'מזהה': 'id',
-  'שם פרטי': 'firstName',
-  'שם משפחה': 'lastName',
-  'טלפון הנעדר': 'missingPhone',
-  'תמונה': 'image',
-  'שם איש קשר': 'contactName',
-  'טלפון איש קשר': 'contactPhone',
-  'סטטוס': 'status',
-  'נצפה לאחרונה': 'lastSeen',
-  'פרטים מזהים': 'identifyingDetails',
-  'הערות': 'notes',
+const keyTranslationMap: {[key: string]: string} = {
+  'id': 'id',
+  'first_name': 'firstName',
+  'last_name': 'lastName',
+  'image': 'image',
+  'contact_name': 'contactName',
+  'contact_phone': 'contactPhone',
+  'status': 'status',
+  'last_seen': 'lastSeen',
+  'details': 'identifyingDetails',
+  'notes': 'notes',
 } as const;
 
 export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
@@ -35,8 +34,9 @@ export async function fetchAllSheetData(name?: string): Promise<PersonData[]> {
   ) : rows;
 
   // turn rows into an array of objects
-  const keys = rows[0];
-  const keysInEnglish = keys.map((key: string) => KeysInHebrewToEnglish[key]);
+  const headers = rows[0];
+  const keysInEnglish = headers.map((key: string) => keyTranslationMap[key]);
+
   const fuzzyFoundRowsWithKeys = fuzzyFoundRows.map((row: any) => {
     const rowWithKeys: Partial<PersonData> = {};
     keysInEnglish.forEach((key: string, i: number) => {

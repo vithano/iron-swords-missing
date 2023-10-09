@@ -1,10 +1,11 @@
 import {cn, sanitizeImageUrl} from "@/lib/utils";
+import Image from "next/image"
 
 import {fetchById} from "@/actions";
-import {Metadata} from "next";
-import Head from "next/head";
 import Link from "next/link";
 import StatusPill from "../../../components/status-pill";
+import Head from "next/head";
+import { Metadata } from "next";
 interface PageProps {
     params: {
       id: string
@@ -21,8 +22,7 @@ export async function generateMetadata({
   
     const img = sanitizeImageUrl(data.image)
   
-    const ogUrl = new URL(`/profile/${params.id}}`);
-
+    const ogUrl = new URL(`https://iron-swords-missing.vercel.app/profile/${params.id}}`)
     ogUrl.searchParams.set("title", `${data.firstName} ${data.lastName}`)
     ogUrl.searchParams.set("type", "article")
     ogUrl.searchParams.set("mode", "light")
