@@ -7,12 +7,13 @@ export const runtime = 'nodejs';
 export async function GET(request: Request) {
 
 
-    let { data, error } = await supabase
-    .from('people')
-    .select()
-  
-    console.log(111,{data, error},process.env.SUPABASE_URL,process.env.SUPABASE_ANON_KEY);
-    return new Response(JSON.stringify(data), {
+    let {data, error} = await supabase
+        .from('people')
+        .select("*")
+        .limit(1)
+        
+
+    return new Response(JSON.stringify(data,null,4), {
         headers: {
             'content-type': 'application/json;charset=UTF-8',
         },
