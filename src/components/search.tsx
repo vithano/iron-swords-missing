@@ -6,6 +6,7 @@ import { useRef } from "react";
 import debounce  from "lodash.debounce";
 import { useCallback } from "react";
 import { useState } from "react";
+const MIN_QUERY_LENGTH = 3;
 export function Search({setData}: {setData: (data: PersonData[]) => void}) {
   const inputValueRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +14,7 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
   const debouncedSearch = useCallback(
     debounce(async () => {
       const name = inputValueRef.current?.trim();
-      if (name) {
+      if (name && name.length >= MIN_QUERY_LENGTH) {
         setIsLoading(true);
         const result = await fetchData({ name });
         setData(result);
