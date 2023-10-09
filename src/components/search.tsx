@@ -12,7 +12,7 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
 
   const debouncedSearch = useCallback(
     debounce(async () => {
-      const name = inputValueRef.current;
+      const name = inputValueRef.current?.trim();
       if (name) {
         setIsLoading(true);
         const result = await fetchData({ name });

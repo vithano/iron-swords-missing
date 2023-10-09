@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import PersonData from "../app/utils/types";
-import {mailAdmin, sanitizeImageUrl} from "@/lib/utils";
+import { sanitizeImageUrl} from "@/lib/utils";
 import Link from "next/link";
 import StatusPill from "./status-pill";
+import SendEmailToAdminButton from "./ui/sendEmailToAdminButton";
 
 export function PersonCard(data: PersonData) {
 
@@ -43,9 +44,7 @@ export function PersonCard(data: PersonData) {
                     </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Button
-                        onClick={() => mailAdmin(subject)}
-                        variant="outline">עדכן אותנו</Button>
+                    <SendEmailToAdminButton subject={subject} />
                     <span>
                         <StatusPill status={status} />
                     </span>

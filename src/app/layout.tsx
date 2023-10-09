@@ -10,6 +10,9 @@ const inter = Inter({subsets: ['latin']})
 
 
 export async function generateMetadata(): Promise<Metadata> {
+  if(process.env.NODE_ENV === "development") {
+    return {}
+  }
   const url = "https://ironswords.org.il/"
   const title = "חרבות ברזל - איתור ועדכון נעדרים";
   const desc = "חרבות ברזל - איתור ועדכון נעדרים";
@@ -62,7 +65,7 @@ export default function RootLayout({
           >
             <NavBar />
             {children}
-            <Analytics />
+            {process.env.NODE_ENV !== "development" && <Analytics />}
             <Footer />
           </ThemeProvider>
         </body>

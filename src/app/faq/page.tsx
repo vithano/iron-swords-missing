@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from '@/components/ui/button';
+import { mailAdmin } from '@/lib/utils';
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 
@@ -53,6 +55,10 @@ export default function FAQ() {
               </Disclosure>
             ))}
           </dl>
+          <Button onClick={()=>mailAdmin()}
+        className={"w-full sm:w-20 sm:text-center bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-4"}>
+        צור קשר
+    </Button>
         </div>
       </div>
     </div>

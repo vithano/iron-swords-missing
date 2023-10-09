@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import {mailAdmin} from "@/lib/utils"
 export default function About() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24" dir="rtl">
+    <main className="flex min-h-screen flex-col items-center justify-between p-6 sm:p-24" dir="rtl">
     <div className={"max-w-[400px] bg-inherit shadow flex flex-col my-4 p-6"}>
     <p className={"text-xl font-semibold pb-5"}>עלינו</p>
     <p className={"pb-2"}>האתר נועד לעזור ולאתר את הנעדרים של מלחמת חרבות ברזל

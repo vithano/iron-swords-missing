@@ -1,11 +1,11 @@
 import {cn, sanitizeImageUrl} from "@/lib/utils";
-import Image from "next/image"
 
 import {fetchById} from "@/actions";
 import Link from "next/link";
 import StatusPill from "../../../components/status-pill";
 import Head from "next/head";
 import { Metadata } from "next";
+import SendEmailToAdminButton  from "../../../components/ui/sendEmailToAdminButton";
 interface PageProps {
     params: {
       id: string
@@ -14,6 +14,9 @@ interface PageProps {
 export async function generateMetadata({
     params,
   }: PageProps): Promise<Metadata> {
+    if(process.env.NODE_ENV === "development") {
+        return {}
+    }
     const data = await fetchById(params)
   
     if (!data) {
@@ -63,6 +66,7 @@ export default async function Page({params}: {params: {id: string}}) {
     }
 
     const {firstName, lastName, contactName, identifyingDetails, contactPhone, image, lastSeen, notes, status} = data;
+    const subject = `היי, ראיתי אדם שנראה לאחרונה ואשמח אם תצרי איתי קשר לגבי ` + ` ${firstName} ${lastName} ${id}`;
     const imgUrl = sanitizeImageUrl(image);
     return (
         <>
@@ -78,10 +82,11 @@ export default async function Page({params}: {params: {id: string}}) {
                                 <h1 className="text-4xl font-medium ">{firstName} {lastName}</h1>
                             </div>
                             <div className="py-4">
-
                             <StatusPill status={status}/>
                             </div>
-
+                            <div className="mt-4">
+                                <SendEmailToAdminButton subject={subject} />
+                            </div>
                         </div>
 
                         <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
