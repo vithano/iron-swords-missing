@@ -2,7 +2,7 @@ import {ImageResponse} from 'next/server';
 // App router includes @vercel/og.
 // No need to install it.
 import supabase from "@/services/supabase";
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 export async function GET(request: Request) {
 
