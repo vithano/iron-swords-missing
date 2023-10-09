@@ -1,11 +1,9 @@
 'use client'
 import Image from 'next/image'
-import {MainNav} from '../components/main-nav'
+import {useState} from 'react'
 import {Search} from '../components/search'
-import { AddMissing } from '../components/add-missing'
-import { useState } from 'react';
-import PersonData from './utils/types';
-import { SearchResults } from '../components/searchResults';
+import {SearchResults} from '../components/searchResults'
+import PersonData from './utils/types'
 
 export default function Home() {
   const [data, setData] = useState<(PersonData)[]>([]);

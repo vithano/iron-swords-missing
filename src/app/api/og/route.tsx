@@ -11,9 +11,7 @@ export async function GET(request: Request) {
     );
     // ?title=<title>
     const hasTitle = searchParams.has('title');
-    const title = hasTitle
-        ? searchParams.get('title')?.slice(0, 100)
-        : 'IronSwords.org.il - ' + "איתור ועדכון נעדרים וחטופים".split("").reverse().join("");
+    const title = 'IronSwords.org.il - ' + "איתור ועדכון נעדרים וחטופים".split("").reverse().join("");
 
 
     return new ImageResponse(
@@ -40,7 +38,7 @@ export async function GET(request: Request) {
                         padding: '0 120px',
                         lineHeight: 1.4,
                         whiteSpace: 'pre-wrap',
-                        backgroundColor: "#f93c3c",
+                        backgroundColor: "#db4f4f",
                     }}
                 >
                     {title}
