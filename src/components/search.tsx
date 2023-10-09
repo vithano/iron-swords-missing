@@ -8,7 +8,7 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
   const handleSearch = debounce(async (name: string) => {
     const result = await fetchData({name});
     setData(result);
-  }, 500);
+  }, 200);
 
   return (
       <Input

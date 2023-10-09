@@ -6,9 +6,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 export const debounce = (func: Function, delay: number) => {
   let timer: ReturnType<typeof setTimeout>;
+  let isFirstInvocation = true;
   return function (this: unknown, ...args: any[]) {
-    clearTimeout(timer);
-    timer = setTimeout(() => func.apply(this, args), delay);
+    if (isFirstInvocation && !args[0]) {
+      func.apply(this, args);
+      isFirstInvocation = false;
+    } else {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    }
   };
 };
 export const sanitizeImageUrl = (url: string) => {

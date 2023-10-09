@@ -22,7 +22,7 @@ export default function Home() {
         priority
       />}
 
-    <div className="flex min-h-screen flex-col items-center justify-between p-4 sm:p-16">
+    <div className="flex min-h-screen flex-col items-center gap-6 p-4 sm:p-16">
       <Search setData={setData}/>
       <SearchResults data={data} />
     </div>
