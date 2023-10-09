@@ -3,16 +3,17 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { clsx } from "clsx";
 import React, { Fragment, useState } from "react";
 import { Button } from "./button";
-
+interface ButtonProps {
+    text: string;
+    shouldClose: boolean;
+    onClick: () => void;
+}
 interface DialogProps {
     children: React.ReactNode;
     title: string;
     description: string;
-    closeButtonText: string;
-    secondaryButton?: {
-      text: string;
-      onClick: () => void;
-    }
+    primaryButton: ButtonProps;
+    secondaryButton?: ButtonProps;
 }
 
 const Dialog = (props: DialogProps) => {
@@ -65,25 +66,26 @@ const Dialog = (props: DialogProps) => {
                 {props.description}
               </DialogPrimitive.Description>
               <div className={`mt-4 flex ${props.secondaryButton? 'justify-between' : 'justify-end'}`}>
-                <DialogPrimitive.Close
+                {props.primaryButton.shouldClose ? <DialogPrimitive.Close
+                onClick={props.primaryButton.onClick}
                   className={clsx(
-                    "inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium",
-                    "bg-purple-600 text-white hover:bg-purple-700 dark:bg-purple-700 dark:text-gray-100 dark:hover:bg-purple-600",
-                    "border border-transparent",
-                    "focus:outline-none  focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                    "text-white text-primary-foreground h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
                   )}
                 >
-                  {props.closeButtonText}
-                </DialogPrimitive.Close>
-              {props.secondaryButton &&
-                <Button onClick={props.secondaryButton.onClick} className={clsx(
-                  "inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium",
-                  "bg-purple-600 text-white hover:bg-purple-700 dark:bg-purple-700 dark:text-gray-100 dark:hover:bg-purple-600",
-                  "border border-transparent",
-                  "focus:outline-none  focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                )}>
-                  {props.secondaryButton.text}
+                  {props.primaryButton.text}
+                </DialogPrimitive.Close> : <Button onClick={props.primaryButton.onClick} variant="outline">
+                  {props.primaryButton.text}
                 </Button>}
+              {props.secondaryButton ? props.secondaryButton.shouldClose ? <DialogPrimitive.Close
+                onClick={props.secondaryButton.onClick}
+                  className={clsx(
+                    "text-white text-primary-foreground h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                  )}
+                >
+                    {props.secondaryButton?.text}
+                </DialogPrimitive.Close> : <Button onClick={props.secondaryButton.onClick} variant="secondary">
+                    {props.secondaryButton.text}
+                </Button> : null}
               </div>
               <DialogPrimitive.Close
                 className={clsx(

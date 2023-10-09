@@ -9,7 +9,8 @@ const adminMail = 'ironswordsoperation@gmail.com';
 const content = `אם לא ניתן לשלוח מייל דרך הכפתור אנא שלחו לנו ב ${adminMail}`
 const title = 'שלחו לנו מייל';
 const description = `נשמח לעזור לכם לעדכן את הנעדרים שלכם.\n ${content}`;
-const secondaryButton = {text:'שלח מייל', onClick:()=>mailAdmin(subject)};
-    return (<Dialog secondaryButton={secondaryButton} description={description} closeButtonText="ביטול" title={title}><Button variant="outline">עדכן אותנו</Button></Dialog>)
+const primaryButton = {text:'שלח מייל', onClick:()=>mailAdmin(subject)};
+const secondaryButton = {text:'העתק מייל', shouldClose:true, onClick:()=>navigator.clipboard.writeText(adminMail)};
+    return (<Dialog secondaryButton={secondaryButton} description={description} primaryButton={primaryButton} title={title}><Button variant="outline">עדכן אותנו</Button></Dialog>)
 }
 export default SendEmailToAdminButton;
