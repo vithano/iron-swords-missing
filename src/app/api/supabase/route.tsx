@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 
     let { data, error } = await supabase
     .from('people')
-    .select('id')
+    .select()
   
     console.log(111,{data, error},process.env.SUPABASE_URL,process.env.SUPABASE_ANON_KEY);
     return new Response(JSON.stringify(data), {
