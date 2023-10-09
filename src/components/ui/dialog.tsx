@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 import React, { Fragment, useState } from "react";
 import { Button } from "./button";
 interface ButtonProps {
-    text: string;
+    text: string | React.ReactNode;
     shouldClose: boolean;
     onClick: () => void;
 }
