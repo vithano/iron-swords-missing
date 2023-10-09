@@ -22,8 +22,8 @@ export function PersonCard(data: PersonData) {
 
     return (
 
-        <Link href={`/profile/${id}`}>
             <Card className="w-[350px] text-right" >
+            <Link href={`/profile/${id}`}>
                 <CardHeader>
                     <CardTitle>{firstName} {lastName}
                     </CardTitle>
@@ -43,6 +43,7 @@ export function PersonCard(data: PersonData) {
                         </div>
                     </div>
                 </CardContent>
+                </Link>
                 <CardFooter className="flex justify-between">
                     <SendEmailToAdminButton subject={subject} />
                     <span>
@@ -51,6 +52,5 @@ export function PersonCard(data: PersonData) {
 
                 </CardFooter>
             </Card>
-        </Link>
     )
 }
