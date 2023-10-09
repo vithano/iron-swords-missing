@@ -42,6 +42,7 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
       className="md:w-[100px] lg:w-[300px]"
       onChange={onInputChange}
       isLoading={isLoading}
+      iconSrc={'/search.svg'}
     />
   );
 }
