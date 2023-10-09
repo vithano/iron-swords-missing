@@ -20,32 +20,30 @@ type Props = {
 }
 
 export async function fetchDbData(props?: Props): Promise<PersonData[]> {
-  const {name, id} = props ?? {name: null, id: null}
+  const {name, id} = props ?? {name: '', id: null}
 
-const {data = []} = await
-  supabase
-    .from('people')
-    .select('*')
+  const {data = []} = await
+    supabase
+      .from('people')
+      .select('*')
+      .or(`or(first_name.ilike.%${name}%,last_name.ilike.%${name}%),id.eq.${id}`);
+      
 
-// .or(
-//   client.ilike('first_name', `%${name}%`),
-//   client.ilike('last_name', `%${name}%`)
-// )
 
-// @ts-ignore
-return data?.map(({id, contact_name, contact_phone, details, first_name, image, last_name, last_seen, notes, status}) => ({
-  id,
-  contactName: contact_name,
-  contactPhone: contact_phone,
-  identifyingDetails: details,
-  firstName: first_name,
-  image,
-  lastName: last_name,
-  lastSeen: last_seen,
-  notes,
-  status,
-  missingPhone: ''
-})) ?? []
+  // @ts-ignore
+  return data?.map(({id, contact_name, contact_phone, details, first_name, image, last_name, last_seen, notes, status}) => ({
+    id,
+    contactName: contact_name,
+    contactPhone: contact_phone,
+    identifyingDetails: details,
+    firstName: first_name,
+    image,
+    lastName: last_name,
+    lastSeen: last_seen,
+    notes,
+    status,
+    missingPhone: ''
+  })) ?? []
 
 
 
