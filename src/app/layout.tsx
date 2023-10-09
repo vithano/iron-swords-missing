@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: desc,
       images: [
         {
-          url: ogUrl.toString(),
+          url: "https://github.com/kaminskypavel/iron-swords-missing/assets/1287098/58dbd3ef-c12a-4ec5-95c2-c08fef6dfa3d",
           width: 1200,
           height: 630,
           alt: title,
