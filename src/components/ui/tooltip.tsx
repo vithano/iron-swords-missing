@@ -5,12 +5,13 @@ import React from "react";
 interface TooltipProps {
     children: React.ReactNode;
     content: string;
+    open?: boolean;
 }
 
 const Tooltip = (props: TooltipProps) => {
   return (
     <TooltipPrimitive.Provider delayDuration={200}>
-      <TooltipPrimitive.Root>
+      <TooltipPrimitive.Root open={props.open} >
         <TooltipPrimitive.Trigger asChild>
           {props.children}
         </TooltipPrimitive.Trigger>
