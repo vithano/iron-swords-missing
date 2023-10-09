@@ -35,6 +35,7 @@ export function PersonCard(data: PersonData) {
                             <Image className="aspect-[14/13] max-w-100 dark:drop-shadow-[0_0_0.25rem_#ffffff70] w-full rounded-2xl object-cover cursor-pointer"
                                 width={200}
                                 height={200}
+                                unoptimized={true}
                                 style={{objectPosition: '0 22%'}}
                                 src={
                                     sanitizeImageUrl(image)} alt={firstName + " " + lastName} />
