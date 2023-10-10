@@ -36,6 +36,7 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
     inputValueRef.current = name;
     if (name === '') {
       setData([]);
+      setMessage('')
       debouncedSearch.cancel();  // Cancel the debounce
     } else {
       debouncedSearch();
