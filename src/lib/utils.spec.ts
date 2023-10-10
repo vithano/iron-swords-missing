@@ -24,6 +24,12 @@ describe('sanitizeImageUrl', () => {
         expect(sanitizeImageUrl(url)).toEqual(expected);
     });
 
+    it('should sanitize a needarim.co.il', () => {
+        const url = 'https://needarim.co.il/img/test.jpeg';
+        const expected = 'https://needarim.co.il/img/test.jpeg';
+        expect(sanitizeImageUrl(url)).toEqual(expected);
+    });
+
     it('should return /no-image.png if the URL is falsy', () => {
         expect(sanitizeImageUrl(null as any)).toEqual('/no-image.png');
         expect(sanitizeImageUrl(undefined as any)).toEqual('/no-image.png');
