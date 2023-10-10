@@ -9,18 +9,7 @@ export type PersonData = {
   lastSeen: string;
   identifyingDetails: string;
   notes: string;
-}
-export type PersonDataSql = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  image: string;
-  contact_name: string;
-  contact_phone: string;
-  status: string;
-  last_seen: string;
-  details: string;
-  notes: string;
+  source: string;
 }
 
 export default PersonData;

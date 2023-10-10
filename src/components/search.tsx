@@ -5,12 +5,27 @@ import PersonData from "../app/utils/types";
 import { useRef } from "react";
 import debounce  from "lodash.debounce";
 import { useCallback } from "react";
-import { useState } from "react";
+import { useState,useEffect  } from "react";
+import { useSearchParams } from "next/navigation";
+import { Button } from "./ui/button";
+
 const MIN_QUERY_LENGTH = 3;
 export function Search({setData, setMessage}: {setData: (data: PersonData[]) => void, setMessage: (msg: string) => void}) {
+  const searchParams = useSearchParams();
   const inputValueRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
+  const [searchName, setSearchName] = useState("")
+  const [isResults, setIsResults] = useState(false)
 
+  useEffect(() => {
+    const name = searchParams.get("name");
+    const event = { target: { value: name } } as React.ChangeEvent<HTMLInputElement>;
+    onInputChange(event);
+  }, [searchParams])
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(`https://ironswords.org.il/?name=${searchName}`);
+  }
   const debouncedSearch = useCallback(
     debounce(async () => {
       const name = inputValueRef.current?.trim();
@@ -19,12 +34,15 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
         try {
           const result = await fetchData({name});
           setData(result);
+          setIsResults(result.length > 0);
+          setSearchName(name);
           setMessage(result.length ? '' : 'לא נמצאו תוצאות');
           setIsLoading(false);
         } catch (err) {
           console.error(err);
           setIsLoading(false);
-          setMessage('משהו השתבש. נסו שוב או תיצרו איתנו קשר')
+          setIsResults(false);
+          setMessage('משהו השתבש. נסו שוב או תיצרו איתנו קשר');
         }
       }
     }, 250),
@@ -36,7 +54,8 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
     inputValueRef.current = name;
     if (name === '') {
       setData([]);
-      setMessage('')
+      setMessage('');
+      setIsResults(false);
       debouncedSearch.cancel();  // Cancel the debounce
     } else {
       debouncedSearch();
@@ -44,14 +63,18 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
   }
 
   return (
+    <>
     <Input
-      dir='rtl'
+      dir="rtl"
       type="search"
       placeholder="שם פרטי/משפחה (בעברית)"
       className="md:w-[100px] lg:w-[300px]"
+      defaultValue={searchName}
       onChange={onInputChange}
       isLoading={isLoading}
-      iconSrc={'/search.svg'}
+      iconSrc={"/search.svg"}
     />
+    {isResults && <Button onClick={() => onCopy()}>העתק את התוצאות</Button>}
+    </>
   );
-}
+};
