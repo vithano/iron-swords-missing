@@ -7,7 +7,7 @@ import debounce  from "lodash.debounce";
 import { useCallback } from "react";
 import { useState } from "react";
 const MIN_QUERY_LENGTH = 3;
-export function Search({setData}: {setData: (data: PersonData[]) => void}) {
+export function Search({setData, setMessage}: {setData: (data: PersonData[]) => void, setMessage: (msg: string) => void}) {
   const inputValueRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,9 +16,16 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
       const name = inputValueRef.current?.trim();
       if (name && name.length >= MIN_QUERY_LENGTH) {
         setIsLoading(true);
-        const result = await fetchData({ name });
-        setData(result);
-        setIsLoading(false);
+        try {
+          const result = await fetchData({name});
+          setData(result);
+          setMessage(result.length ? '' : 'לא נמצאו תוצאות');
+          setIsLoading(false);
+        } catch (err) {
+          console.error(err);
+          setIsLoading(false);
+          setMessage('משהו השתבש. נסו שוב או תיצרו איתנו קשר')
+        }
       }
     }, 250),
     []
@@ -39,7 +46,7 @@ export function Search({setData}: {setData: (data: PersonData[]) => void}) {
     <Input
       dir='rtl'
       type="search"
-      placeholder="שם פרטי/משפחה (בעברית)..."
+      placeholder="שם פרטי/משפחה (בעברית)"
       className="md:w-[100px] lg:w-[300px]"
       onChange={onInputChange}
       isLoading={isLoading}
