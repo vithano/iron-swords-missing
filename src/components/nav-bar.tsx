@@ -12,6 +12,7 @@ import SendEmailToAdminButton from './ui/sendEmailToAdminButton';
 const navigation = [
     {name: 'עלינו', href: '/about'},
     {name: 'שאלות נפוצות', href: '/faq'},
+    {name: 'SafeDonate', href: '/safedonate'},
 ]
 
 export default function NavBar() {
