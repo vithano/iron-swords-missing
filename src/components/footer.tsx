@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import * as vercel from "@/services/vercel";
 
 const navigation = [
 
@@ -17,7 +17,10 @@ const navigation = [
     },
 ]
 
-export default function Footer() {
+export default async function Footer() {
+
+    const {lastDeployedDate, lastDeployedTime} = await vercel.getLastDeploymentTime();
+
     return (
         <footer className="bg-gray-900" aria-labelledby="footer-heading">
             <h2 id="footer-heading" className="sr-only">
@@ -26,19 +29,22 @@ export default function Footer() {
             <div className="mx-auto max-w-7xl px-6 pb-8 pt-4 sm:pt-4 lg:px-8 lg:pt-4">
                 <div className="mt-8 border-t border-white/10 pt-8 md:flex md:items-center md:justify-between">
                     <div className="flex space-x-6 md:order-2">
+                        {lastDeployedDate && lastDeployedTime && <span className="inline-flex items-center rounded-full bg-blue-700 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-indigo-700/10">
+                            עודכן לאחרונה ב : {lastDeployedTime} {lastDeployedDate}
+                        </span>}
+
                         {navigation.map((item) => (
                             <a key={item.name} href={item.href} className="text-gray-500 hover:text-gray-400">
                                 <span className="sr-only">{item.name}</span>
                                 <item.icon className="h-6 w-6" aria-hidden="true" />
                             </a>
                         ))}
+
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
-                        עדכון אחרון 09/10/23
-                    </span>
 
                     <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
                         &copy; IronSwords.org.il, Inc. All rights reserved.
+
                     </p>
                 </div>
             </div>
