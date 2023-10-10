@@ -8,7 +8,7 @@ type Props = {
 }
 export const revalidate = 0;
 const MIN_QUERY_LENGTH = 3;
-
+export const fetchCache = 'force-no-store';
 export async function fetchDbData(props?: Props): Promise<PersonData[]> {
   const { name, id } = props ?? { name: '', id: null };
   const isFullName = name?.includes(' ');
