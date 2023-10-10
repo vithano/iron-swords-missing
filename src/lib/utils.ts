@@ -9,6 +9,7 @@ export const sanitizeImageUrl = (url: string) => {
   if (url && url.includes('https://drive.google.com/')) {
     const id = url
       .replace('https://drive.google.com/file/d/', '')
+      .replace('https://drive.google.com/open?id=', '')
       .replace('/view?usp=sharing', '')
       .replace('/view?usp=drive_link', '')
     return `https://drive.google.com/uc?export=view&id=${id}`
