@@ -2,35 +2,41 @@
 import {Input} from "@/components/ui/input";
 import {fetchData} from "@/actions";
 import PersonData from "../app/utils/types";
-import { useRef } from "react";
-import debounce  from "lodash.debounce";
-import { useCallback } from "react";
-import { useState,useEffect  } from "react";
-import { useSearchParams } from "next/navigation";
-import { Button } from "./ui/button";
+import {useRef} from "react";
+import debounce from "lodash.debounce";
+import {useCallback} from "react";
+import {useState, useEffect} from "react";
+import {useSearchParams} from "next/navigation";
+import {Button} from "./ui/button";
+import validator from 'validator';
+import {cn} from "../lib/utils";
+import CopyButton from "./ui/copy-button";
 
 const MIN_QUERY_LENGTH = 3;
 export function Search({setData, setMessage}: {setData: (data: PersonData[]) => void, setMessage: (msg: string) => void}) {
   const searchParams = useSearchParams();
   const inputValueRef = useRef('');
+
   const [isLoading, setIsLoading] = useState(false);
   const [searchName, setSearchName] = useState("")
   const [isResults, setIsResults] = useState(false)
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const name = searchParams.get("name");
-    const event = { target: { value: name } } as React.ChangeEvent<HTMLInputElement>;
+    const event = {target: {value: name}} as React.ChangeEvent<HTMLInputElement>;
     onInputChange(event);
   }, [searchParams])
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(`https://ironswords.org.il/?name=${searchName}`);
-  }
+
   const debouncedSearch = useCallback(
     debounce(async () => {
+
       const name = inputValueRef.current?.trim();
+
       if (name && name.length >= MIN_QUERY_LENGTH) {
         setIsLoading(true);
+
         try {
           const result = await fetchData({name});
           setData(result);
@@ -42,7 +48,7 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
           console.error(err);
           setIsLoading(false);
           setIsResults(false);
-          setMessage('משהו השתבש. נסו שוב או תיצרו איתנו קשר');
+          setMessage('משהו השתבש. נסו שוב או צרו איתנו קשר');
         }
       }
     }, 250),
@@ -52,6 +58,10 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
   function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.value;
     inputValueRef.current = name;
+
+    if (name && name.length > 0 && name.length < MIN_QUERY_LENGTH)
+      setIsError(true);
+
     if (name === '') {
       setData([]);
       setMessage('');
@@ -63,18 +73,19 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
   }
 
   return (
-    <>
-    <Input
-      dir="rtl"
-      type="search"
-      placeholder="שם פרטי/משפחה (בעברית)"
-      className="md:w-[100px] lg:w-[300px]"
-      defaultValue={searchName}
-      onChange={onInputChange}
-      isLoading={isLoading}
-      iconSrc={"/search.svg"}
-    />
-    {isResults && <Button onClick={() => onCopy()}>העתק את התוצאות</Button>}
-    </>
+    <div className="flex" dir="rtl">
+      <Input
+        dir="rtl"
+        type="search"
+        placeholder="שם פרטי/משפחה (בעברית) ..."
+        className={cn("md:w-[100px] lg:w-[300px]")}
+        defaultValue={searchName}
+        onChange={onInputChange}
+        isLoading={isLoading}
+        iconSrc={"/search.svg"}
+      />
+
+      {isResults && <CopyButton className="mx-4" text={`https://ironswords.org.il/?name=${searchName}`} />}
+    </div>
   );
 };
