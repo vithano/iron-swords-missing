@@ -4,7 +4,7 @@ import {useState} from 'react'
 import {Search} from '../components/search'
 import {SearchResults} from '../components/searchResults'
 import PersonData from './utils/types'
-
+export const revalidate = 60;
 export default function Home() {
   const [data, setData] = useState<(PersonData)[]>([]);
   const [message, setMessage] = useState('');
