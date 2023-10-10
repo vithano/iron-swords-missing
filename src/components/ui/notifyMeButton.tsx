@@ -39,7 +39,7 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
             </html>`
             sendEmail({
                 email,
-                from: adminMail,
+                from: 'noreply@ironswords.org.il',
                 subject: `עדכון סטטוס לגבי ${fullName}`,
                 html
             });
