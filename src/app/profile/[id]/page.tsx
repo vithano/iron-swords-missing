@@ -29,7 +29,16 @@ export async function generateMetadata({
 
     const ogUrl = new URL(`${url}/profile/${params.id}}`)
 
-    const {firstName, image, identifyingDetails, lastSeen, lastName, status, notes} = data;
+    const {
+        firstName,
+        image,
+        identifyingDetails = "",
+        lastSeen = "",
+        lastName,
+        status,
+        notes = ""
+    } = data;
+
     const sanitizedImage = sanitizeImageUrl(image)
 
     ogUrl.searchParams.set("title", `${data.firstName} ${data.lastName}`)
