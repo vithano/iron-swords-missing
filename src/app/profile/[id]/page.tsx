@@ -6,6 +6,7 @@ import StatusPill from "../../../components/status-pill";
 import Head from "next/head";
 import {Metadata} from "next";
 import SendEmailToAdminButton from "../../../components/ui/sendEmailToAdminButton";
+import NotifyMeButton from "@/components/ui/notifyMeButton";
 
 interface PageProps {
     params: {
@@ -106,6 +107,9 @@ export default async function Page({params}: {params: {id: string}}) {
                                 </div>
                                 <div className="mt-4">
                                     <SendEmailToAdminButton text={'עדכן אותנו'} subject={subject} />
+                                </div>
+                                <div className="mt-4">
+                                    <NotifyMeButton notify_id={id} table={'people'} />
                                 </div>
                             </div>
 

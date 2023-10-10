@@ -8,6 +8,7 @@ interface DialogProps {
     description: string | React.ReactNode;
     primaryButton?: React.ReactNode;
     secondaryButton?: React.ReactNode;
+    replaceDescription?: boolean;
 }
 
 const Dialog = (props: DialogProps) => {
@@ -55,9 +56,9 @@ const Dialog = (props: DialogProps) => {
               <DialogPrimitive.Title dir="rtl" className="text-sm font-medium text-gray-900 dark:text-gray-100">
                 {props.title}
               </DialogPrimitive.Title>
-              <DialogPrimitive.Description dir="rtl" className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
+              {props.replaceDescription?props.description : <DialogPrimitive.Description dir="rtl" className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
                 {props.description}
-              </DialogPrimitive.Description>
+              </DialogPrimitive.Description>}
               <div className={`mt-4 flex ${props.secondaryButton? 'justify-between' : 'justify-end'}`}>
                 {props.primaryButton && props.primaryButton}
                 {props.secondaryButton && props.secondaryButton}

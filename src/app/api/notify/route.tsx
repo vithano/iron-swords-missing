@@ -1,7 +1,6 @@
-'use client';
 import { NextResponse } from 'next/server';
-import supabase from '@/services/supabase';
 import { adminMail, getBaseUrl } from '@/lib/utils';
+import { fetchNotifications,addNotification, sendEmail } from '@/actions';
 
 export const runtime = 'edge';
 
@@ -21,19 +20,9 @@ export async function POST(request: Request) {
 }
 const getEmailsToNotify = async (id:string) => {
     const emails:string[] = [];
-    const { data, error } = await supabase
-        .from('notifications')
-        .select('email')
-        .eq('notify_id', id)
-        .limit(10);
-    if(error) {
-        console.error(error);
-        return emails;
-    }
-    if(data) {
-        data.forEach((row:any) => {
-            emails.push(row.email);
-        });
+    const notifications = await fetchNotifications({notify_id:id});
+    for(const notification of notifications) {
+        emails.push(notification.email);
     }
     return emails;
 };
@@ -45,14 +34,11 @@ const handlePeople = async (data: any) => {
         const emails = await getEmailsToNotify(newRecord.id);
         const fullName = `${newRecord.first_name} ${newRecord.last_name}`;
         if(emails.length) {
-            const { Resend } = await import('resend');
-            const resend = new Resend(process.env.RESEND_KEY);
-
-            resend.emails.send({
-                to: emails,
+            sendEmail({
+                email: emails,
                 from: adminMail,
                 subject: `עדכון סטטוס לגבי ${fullName}`,
-                text: `שלום רב, היה עדכון בסטטוס של ${fullName}
+                html: `שלום רב, היה עדכון בסטטוס של ${fullName}
                 ניתן לעקוב אחרי העדכונים בקישור הבא: ${getBaseUrl()}/profile/${newRecord.id}`
             });
         }
@@ -65,15 +51,62 @@ const handleAnimals = async (data: any) => {
     if(oldRecord?.status !== newRecord?.status) {
         const emails = await getEmailsToNotify(newRecord.id);
         if(emails.length) {
-            const { Resend } = await import('resend');
-            const resend = new Resend(process.env.RESEND_KEY);
-            resend.emails.send({
-                to: emails,
+            sendEmail({
+                email: emails,
                 from: adminMail,
                 subject: `עדכון סטטוס לגבי ${newRecord.name}`,
-                text: `שלום רב, היה עדכון בסטטוס של ${newRecord.name}
+                html: `שלום רב, היה עדכון בסטטוס של ${newRecord.name}
                 ניתן לעקוב אחרי העדכונים בקישור הבא: ${getBaseUrl()}/profile/${newRecord.id}`
             });
         }
     }
 };
+// show page with success message
+const successPageHtml = `
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>עדכוני סטטוס</title>
+    </head>
+    <body>
+        <h1>נרשמת בהצלחה לעדכוני סטטוס</h1>
+        <p>ישלח לך מייל אם נקבל עדכון לגבי הנעדר שלך</p>
+        <p>מאחלים בשורות טובות בלבד</p>
+    </body>
+</html>
+`
+const errorPageHtml = `
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>עדכוני סטטוס</title>
+    </head>
+    <body>
+        <h1>משהו השתבש</h1>
+        <p>נסו שוב מאוחר יותר</p>
+    </body>
+</html>
+`
+// to add email to notifications table coming from the notify me button
+export async function PUT(request: Request) {
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('email');
+    const notify_id = searchParams.get('notify_id');
+    if(email && notify_id) {
+        const success = await addNotification({email, notify_id});
+        if(success) {
+            return new NextResponse(successPageHtml, {
+                headers: {
+                    'content-type': 'text/html',
+                },
+            });
+        }
+    }
+    return new NextResponse(errorPageHtml, {
+        headers: {
+            'content-type': 'text/html',
+        },
+    });
+}
