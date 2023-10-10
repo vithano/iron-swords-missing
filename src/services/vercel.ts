@@ -1,5 +1,10 @@
 
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const teamId = process.env.VERCEL_TEAM_ID;
 const accessToken = process.env.VERCEL_ACCESS_TOKEN;
@@ -44,12 +49,14 @@ export const getLastDeploymentTime = async () => {
 
         const {ready} = await result.json()
 
-        const lastDeployedDate = dayjs(ready).format('DD-MM-YYYY');
-        const lastDeployedTime = dayjs(ready).format('HH:mm');
+        const date = dayjs(ready).tz("Asia/Jerusalem");
+        const lastDeployedDate = date.format('DD-MM-YYYY');
+        const lastDeployedTime = date.format('HH:mm');
 
         return {lastDeployedTime, lastDeployedDate};
     }
     catch (e) {
+        console.error(e);
         return {lastDeployedTime: null, lastDeployedDate: null};
     }
 }
