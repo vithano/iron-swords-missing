@@ -1,6 +1,8 @@
 import {type ClassValue, clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
 
+export const adminMail = 'ironswordsoperation@gmail.com';
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -19,7 +21,6 @@ export const sanitizeImageUrl = (url: string) => {
 }
 
 export const mailAdmin = (subject = '', body = '') => {
-  const adminMail = 'ironswordsoperation@gmail.com';
   const subjectEncoded = encodeURIComponent(subject);
   const bodyEncoded = encodeURIComponent(body);
   const emailLink = `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${adminMail}&su=${subjectEncoded}&body=${bodyEncoded}`;

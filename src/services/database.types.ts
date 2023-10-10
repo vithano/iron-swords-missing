@@ -47,6 +47,21 @@ export interface Database {
           status?: string | null
         }
         Relationships: []
+      },
+      notifications: {
+        Row: {
+          email: string,
+          notify_id: string,
+        },
+        Insert: {
+          email: string,
+          notify_id: string,
+        },
+        Update: {
+          email?: string,
+          notify_id?: string,
+        },
+        Relationships: []
       }
     }
     Views: {
