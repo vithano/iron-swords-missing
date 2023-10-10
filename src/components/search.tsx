@@ -34,14 +34,15 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
         try {
           const result = await fetchData({name});
           setData(result);
-          setIsResults(result.length > 0)
-          setSearchName(name)
+          setIsResults(result.length > 0);
+          setSearchName(name);
           setMessage(result.length ? '' : 'לא נמצאו תוצאות');
           setIsLoading(false);
         } catch (err) {
           console.error(err);
           setIsLoading(false);
-          setMessage('משהו השתבש. נסו שוב או תיצרו איתנו קשר')
+          setIsResults(false);
+          setMessage('משהו השתבש. נסו שוב או תיצרו איתנו קשר');
         }
       }
     }, 250),
@@ -53,7 +54,8 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
     inputValueRef.current = name;
     if (name === '') {
       setData([]);
-      setMessage('')
+      setMessage('');
+      setIsResults(false);
       debouncedSearch.cancel();  // Cancel the debounce
     } else {
       debouncedSearch();
