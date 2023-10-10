@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
 import supabase from '@/services/supabase';
-import { Resend } from 'resend';
 import { adminMail, getBaseUrl } from '@/lib/utils';
 
 export const runtime = 'edge';
-
-const resend = new Resend(process.env.RESEND_KEY);
 
 export async function POST(request: Request) {
     const data = await request.json();
@@ -47,6 +44,9 @@ const handlePeople = async (data: any) => {
         const emails = await getEmailsToNotify(newRecord.id);
         const fullName = `${newRecord.first_name} ${newRecord.last_name}`;
         if(emails.length) {
+            const { Resend } = await import('resend');
+            const resend = new Resend(process.env.RESEND_KEY);
+
             resend.emails.send({
                 to: emails,
                 from: adminMail,
@@ -64,6 +64,8 @@ const handleAnimals = async (data: any) => {
     if(oldRecord?.status !== newRecord?.status) {
         const emails = await getEmailsToNotify(newRecord.id);
         if(emails.length) {
+            const { Resend } = await import('resend');
+            const resend = new Resend(process.env.RESEND_KEY);
             resend.emails.send({
                 to: emails,
                 from: adminMail,
