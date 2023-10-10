@@ -3,7 +3,8 @@ import PersonData from "../app/utils/types";
 import {PersonCard} from "./person-card";
 
 export function SearchResults({data}: {data: PersonData[]}) {
-  if(data.length == 0) return null;
+  if (data.length == 0) return "לא נמצאו תוצאות";
+
   return (
     <div>
         <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
