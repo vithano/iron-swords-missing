@@ -6,7 +6,7 @@ type Props = {
   name?: string;
   id?: string;
 }
-
+export const revalidate = 60;
 const MIN_QUERY_LENGTH = 3;
 
 export async function fetchDbData(props?: Props): Promise<PersonData[]> {
