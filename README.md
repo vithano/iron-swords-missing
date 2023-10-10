@@ -28,14 +28,14 @@ npm install -g pnpm
 
 3. Install the necessary dependencies (assuming you have Node.js installed):
    ```bash
-   npm install
+   pnpm install
    ```
 
 ## Usage
 
 To start the application, use the following command:
 ```bash
-npm start
+pnpm dev
 ```
 
 This will start the server and you can access the application at `http://localhost:3000` or the configured port.
@@ -50,4 +50,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Contact
 
-For any inquiries or issues, please contact [Pavel Kaminsky](https://github.com/kaminskypavel).
+For any inquiries or issues, please contact:
+[Pavel Kaminsky](https://github.com/kaminskypavel).
+[vithano](https://github.com/vithano)
+[Idan Dagan](https://github.com/idandagan1)
