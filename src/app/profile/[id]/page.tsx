@@ -94,7 +94,7 @@ export default async function Page({params}: {params: {id: string}}) {
                             <StatusPill status={status}/>
                             </div>
                             <div className="mt-4">
-                                <SendEmailToAdminButton subject={subject} />
+                                <SendEmailToAdminButton text={'עדכן אותנו'} subject={subject} />
                             </div>
                         </div>
 

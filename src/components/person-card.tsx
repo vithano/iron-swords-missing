@@ -45,7 +45,7 @@ export function PersonCard(data: PersonData) {
                 </CardContent>
             </Link>
                 <CardFooter className="flex justify-between">
-                    <SendEmailToAdminButton subject={subject} />
+                    <SendEmailToAdminButton text={'עדכן אותנו'} subject={subject} />
                     <span>
                         <StatusPill status={status} />
                     </span>

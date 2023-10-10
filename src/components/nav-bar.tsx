@@ -1,12 +1,12 @@
 "use client";
 
-import {mailAdmin} from '@/lib/utils';
 import {Dialog} from '@headlessui/react';
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline';
 import Image from "next/image";
 import Link from 'next/link';
 import {useState} from 'react';
 import {AddMissing} from './add-missing';
+import SendEmailToAdminButton from './ui/sendEmailToAdminButton';
 
 
 const navigation = [
@@ -27,9 +27,11 @@ export default function NavBar() {
 
 
                 <div className="hidden lg:flex lg:gap-x-12 ">
-                    <Link href="#" key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer" onClick={() => mailAdmin()}>
-                        צור קשר
-                    </Link>
+                    <SendEmailToAdminButton>
+                        <a key={'contact'} className="text-sm font-semibold leading-6 text-white cursor-pointer">
+                            צור קשר
+                        </a>
+                    </SendEmailToAdminButton>
                     {navigation.map((item) => (
                         <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-white">
                             {item.name}
@@ -97,12 +99,11 @@ export default function NavBar() {
                                         {item.name}
                                     </Link>
                                 ))}
-                                <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer" onClick={() => {
-                                    mailAdmin();
-                                    setMobileMenuOpen(false);
-                                }}>
-                                    צור קשר
-                                </a>
+                                <SendEmailToAdminButton>
+                                    <a key={'contact'} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 cursor-pointer">
+                                        צור קשר
+                                    </a>
+                                </SendEmailToAdminButton>
                             </div>
                             <div className="py-6">
                                 <a
