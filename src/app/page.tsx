@@ -4,9 +4,7 @@ import {useState} from 'react'
 import {Search} from '../components/search'
 import {SearchResults} from '../components/searchResults'
 import PersonData from './utils/types'
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
-export const dynamic = "force-dynamic";
+
 export default function Home() {
   const [data, setData] = useState<(PersonData)[]>([]);
   const [message, setMessage] = useState('');

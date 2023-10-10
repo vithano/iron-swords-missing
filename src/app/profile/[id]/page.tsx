@@ -6,8 +6,7 @@ import StatusPill from "../../../components/status-pill";
 import Head from "next/head";
 import { Metadata } from "next";
 import SendEmailToAdminButton  from "../../../components/ui/sendEmailToAdminButton";
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
+
 interface PageProps {
     params: {
       id: string

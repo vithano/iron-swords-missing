@@ -10,11 +10,6 @@ const nextConfig = {
     },
     experimental: {
         serverActions: true,
-        isrMemoryCacheSize: 0,
-        logging: {
-          level: 'verbose',
-          fullUrl: true
-        }
     },
     images: {
         remotePatterns: [
