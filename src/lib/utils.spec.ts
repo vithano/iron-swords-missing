@@ -5,6 +5,12 @@ describe('sanitizeImageUrl', () => {
         const url = 'https://example.com/image.jpg';
         expect(sanitizeImageUrl(url)).toEqual(url);
     });
+    
+    it('should sanitize a Google Drive URL with /open?id=', () => {
+        const url = 'https://drive.google.com/open?id=abc123';
+        const expected = 'https://drive.google.com/uc?export=view&id=abc123';
+        expect(sanitizeImageUrl(url)).toEqual(expected);
+    });
 
     it('should sanitize a Google Drive URL with /view?usp=sharing', () => {
         const url = 'https://drive.google.com/file/d/123abc/view?usp=sharing';
