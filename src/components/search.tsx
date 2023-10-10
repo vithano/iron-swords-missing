@@ -12,24 +12,20 @@ import { Button } from "./ui/button";
 
 const MIN_QUERY_LENGTH = 3;
 export function Search({setData, setMessage}: {setData: (data: PersonData[]) => void, setMessage: (msg: string) => void}) {
-  
   const searchParams = useSearchParams();
-
   const inputValueRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchName, setSearchName] = useState("")
   const [isResults, setIsResults] = useState(false)
 
   useEffect(() => {
-    const name = searchParams.get("name")
+    const name = searchParams.get("name");
     const event = { target: { value: name } } as React.ChangeEvent<HTMLInputElement>;
-  onInputChange(event)
-
+    onInputChange(event);
   }, [searchParams])
 
   const onCopy = () => {
-    navigator.clipboard.writeText(`https://ironswords.org.il/?name=${searchName}`)
- 
+    navigator.clipboard.writeText(`https://ironswords.org.il/?name=${searchName}`);
   }
   const debouncedSearch = useCallback(
     debounce(async () => {
@@ -77,12 +73,7 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
       isLoading={isLoading}
       iconSrc={"/search.svg"}
     />
-    {isResults &&
-    <Button onClick={() => onCopy()}>העתק את התוצאות</Button>
-    
-  }
+    {isResults && <Button onClick={() => onCopy()}>העתק את התוצאות</Button>}
     </>
-
-
   );
 };
