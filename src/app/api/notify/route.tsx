@@ -1,3 +1,4 @@
+'use client';
 import { NextResponse } from 'next/server';
 import supabase from '@/services/supabase';
 import { adminMail, getBaseUrl } from '@/lib/utils';
