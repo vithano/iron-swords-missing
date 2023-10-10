@@ -22,12 +22,9 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
 
   useEffect(() => {
     const name = searchParams.get("name")
-    if(name && name.length >= MIN_QUERY_LENGTH)
-    {
-
     const event = { target: { value: name } } as React.ChangeEvent<HTMLInputElement>;
   onInputChange(event)
-    }
+
   }, [searchParams])
 
   const onCopy = () => {
@@ -81,7 +78,7 @@ export function Search({setData, setMessage}: {setData: (data: PersonData[]) => 
       iconSrc={"/search.svg"}
     />
     {isResults &&
-    <Button className="f" onClick={() => onCopy()}>העתק את התוצאות</Button>
+    <Button onClick={() => onCopy()}>העתק את התוצאות</Button>
     
   }
     </>
