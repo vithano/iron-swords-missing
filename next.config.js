@@ -9,7 +9,8 @@ const nextConfig = {
           ],      
     },
     experimental: {
-        serverActions: true
+        serverActions: true,
+        isrMemoryCacheSize: 0,
     },
     images: {
         remotePatterns: [
