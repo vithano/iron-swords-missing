@@ -9,7 +9,6 @@ import { useState,useEffect  } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 
-
 const MIN_QUERY_LENGTH = 3;
 export function Search({setData, setMessage}: {setData: (data: PersonData[]) => void, setMessage: (msg: string) => void}) {
   const searchParams = useSearchParams();
