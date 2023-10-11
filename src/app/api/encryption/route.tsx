@@ -2,7 +2,7 @@ import { getBaseUrl } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { createCipheriv, createDecipheriv, randomBytes } from "crypto";
 
-export const encrypt = (data: string, key: string) => {
+const encrypt = (data: string, key: string) => {
   const iv = randomBytes(16);  // Generate a random 16-byte IV
   const cipher = createCipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
   let encrypted = cipher.update(data, 'utf8', 'hex');
@@ -10,7 +10,7 @@ export const encrypt = (data: string, key: string) => {
   return iv.toString('hex') + ':' + encrypted;  // Return IV with the encrypted data
 };
 
-export const decrypt = (encryptedData: string, key: string) => {
+const decrypt = (encryptedData: string, key: string) => {
   const [ivHex, ciphertext] = encryptedData.split(':');  // Split the IV and ciphertext
   const iv = Buffer.from(ivHex, 'hex');
   const decipher = createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
