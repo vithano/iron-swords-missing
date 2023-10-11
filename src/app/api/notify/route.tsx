@@ -48,9 +48,12 @@ const getEmailsToNotify = async (id:string) => {
 const handlePeople = async (data: any) => {
     const oldRecord = data.old_record;
     const newRecord = data.record;
+    console.log('here')
     if(oldRecord?.status !== newRecord?.status) {
+        console.log('here2')
         const emails = await getEmailsToNotify(newRecord.id);
         const fullName = `${newRecord.first_name}` + (newRecord.last_name ? ` ${newRecord.last_name}` : '');
+        console.log('here3')
         console.log('emails', emails)
         if(emails.length) {
             const response = await sendEmail({
