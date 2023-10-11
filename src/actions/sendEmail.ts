@@ -1,7 +1,6 @@
-import { getBaseUrl } from '@/lib/utils';
 
 export async function sendEmail({from, email, subject, html, text,type = 'notify_me'}:{from:string,email: string | string[], subject: string, html?: string, text?: string,type?:string}) {
-  const success = await fetch(`${getBaseUrl()}/api/email`, {
+  const success = await fetch(`/api/email`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

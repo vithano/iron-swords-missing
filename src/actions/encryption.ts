@@ -2,7 +2,7 @@
 import { getBaseUrl } from '@/lib/utils';
 
 export async function encrypt({email,notify_id,table}:{email:string,notify_id:string,table:string}) {
-  const data = await fetch(`${getBaseUrl()}/api/encryption`, {
+  const data = await fetch(`/api/encryption`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ export async function encrypt({email,notify_id,table}:{email:string,notify_id:st
 }
 
 export async function decrypt({hash}:{hash:string}) {
-  const data = await fetch(`${getBaseUrl()}/api/encryption`, {
+  const data = await fetch(`/api/encryption`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import { getBaseUrl } from '@/lib/utils'
 export async function addNotification({hash}:{hash:string}) {
-  const data = await fetch(`${getBaseUrl()}/api/notify`, {
+  const data = await fetch(`/api/notify`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

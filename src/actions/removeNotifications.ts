@@ -3,7 +3,7 @@
 import { getBaseUrl } from '@/lib/utils';
 export async function removeNotification({hash,blacklist = false}:{hash:string,blacklist?:boolean}) {
   if(blacklist){
-    const data = await fetch(`${getBaseUrl()}/api/notify/blacklist`, {
+    const data = await fetch(`/api/notify/blacklist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ export async function removeNotification({hash,blacklist = false}:{hash:string,b
     })
     return data;
   }
-  const data = await fetch(`${getBaseUrl()}/api/notify`, {
+  const data = await fetch(`/api/notify`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
