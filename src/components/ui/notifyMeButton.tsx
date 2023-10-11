@@ -7,11 +7,12 @@ import { useState } from "react";
 import validator from 'validator';
 import { fetchById, sendEmail } from "@/actions";
 import { encrypt } from "@/actions/encryption";
+import { useToast } from "./use-toast";
 
 const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
     const [email, setEmail] = useState('');
+    const { toast } = useToast();
     const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
         validator.isEmail(event.target.value) &&
         setEmail(event.target.value);
     }
@@ -31,7 +32,6 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
             if(!personData || !hash) {
                 return;
             }
-            console.log(hash)
             const fullName = `${personData.firstName} ${personData.lastName}`;
             
             const html = `<html lang="en">
@@ -56,12 +56,25 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
                 </form>
             </body>
             </html>`
-            sendEmail({
+            const response = await sendEmail({
                 email,
                 from: 'noreply@ironswords.org.il',
                 subject: `עדכון סטטוס לגבי ${fullName}`,
                 html,
                 type: `notify_me_${notify_id}`
+            });
+            if(!response) {
+                toast({
+                    title: 'שגיאה',
+                    description: 'האימייל לא נשלח',
+                    variant: 'destructive',
+                    duration: 5000,
+                });
+            }
+            toast({
+                title: 'האימייל נשלח בהצלחה',
+                description: 'אנו נשלח לך אימייל עם קישור להרשמה לעדכונים',
+                duration: 5000,
             });
         }
         catch(err) {

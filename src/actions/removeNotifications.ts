@@ -1,6 +1,5 @@
 'use client'
 
-import { getBaseUrl } from '@/lib/utils';
 export async function removeNotification({hash,blacklist = false}:{hash:string,blacklist?:boolean}) {
   if(blacklist){
     const data = await fetch(`/api/notify/blacklist`, {

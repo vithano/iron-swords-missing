@@ -18,7 +18,6 @@ const decrypt = (encryptedData: string, key: string) => {
 // webhook to handle changes in the database
 export async function POST(request: Request) {
     const data = await request.json();
-    console.log(data);
     if(data.table === 'people') {
         handlePeople(data);
     }
@@ -58,7 +57,6 @@ const handlePeople = async (data: any) => {
                 html: `שלום רב, היה עדכון בסטטוס של ${fullName}
                 ניתן לעקוב אחרי העדכונים בקישור הבא: ${getBaseUrl()}/profile/${newRecord.id}`
             });
-            console.log(response)
         }
     }
 };

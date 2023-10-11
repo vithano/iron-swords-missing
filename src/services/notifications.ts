@@ -64,7 +64,7 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
     const sanitizedEmail = validator.escape(email || '');
     const sanitizedNotifyId = validator.escape(notify_id || '');
     
-    if (!sanitizedEmail || !sanitizedNotifyId)
+    if (!sanitizedEmail && !sanitizedNotifyId)
         return [];
     const orQuery = `or(email.eq.${sanitizedEmail},notify_id.eq.${sanitizedNotifyId})`;
     const {data = []} = await supabase
