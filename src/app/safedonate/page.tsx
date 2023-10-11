@@ -7,7 +7,7 @@ export default function Page() {
       >
         שימו לב ❤️
         <br />
-        פרויקט זה לא מתוחזק על ידי צוות האתר
+        פרויקט זה מתוחזק על ידי צוות SafeDonate
       </div>
       <iframe
         className="h-screen w-screen"
