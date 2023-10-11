@@ -4,7 +4,6 @@ import {fetchById} from "@/actions";
 import StatusPill from "@/components/status-pill";
 import SendEmailToAdminButton from "@/components/ui/sendEmailToAdminButton";
 import {Metadata} from "next";
-import SendEmailToAdminButton from "../../../components/ui/sendEmailToAdminButton";
 import NotifyMeButton from "@/components/ui/notifyMeButton";
 import Head from "next/head";
 import Link from "next/link";
