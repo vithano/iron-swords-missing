@@ -34,7 +34,9 @@ export async function POST(request: Request) {
 }
 const getEmailsToNotify = async (id:string) => {
     const emails:string[] = [];
+    console.log('id', id)
     const notifications = await fetchNotifications({notify_id:id});
+    console.log('notifications', notifications)
     for(const notification of notifications) {
         const isBlackListed = await isBlacklisted({email:notification.email});
         if(!isBlackListed)
