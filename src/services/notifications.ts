@@ -71,10 +71,11 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
     let orQuery = !andQuery && sanitizedEmail ? `or(email.eq.${sanitizedEmail})` : '';
     orQuery = !andQuery && sanitizedNotifyId? `or(notify_id.eq.${sanitizedNotifyId})` : orQuery;
     console.log(andQuery, orQuery)
-    const {data = []} = await supabase
+    const {data = [],error} = await supabase
         .from('notifications')
         .select('*')
         .or(andQuery || orQuery);
+    console.log(data, error)
     return data?.map(({email, notify_id}) => ({
         email,
         notify_id
