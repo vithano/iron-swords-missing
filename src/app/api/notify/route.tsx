@@ -46,7 +46,8 @@ const handlePeople = async (data: any) => {
     const newRecord = data.record;
     if(oldRecord?.status !== newRecord?.status) {
         const emails = await getEmailsToNotify(newRecord.id);
-        const fullName = `${newRecord.first_name}` + (newRecord.last_name ? ` ${newRecord.last_name}` : '');
+
+        const fullName = `${newRecord.first_name}` + (newRecord.last_name && newRecord.last_name.toLowerCase() !== 'null'  ? ` ${newRecord.last_name}` : '');
         if(emails.length) {
             await sendEmail({
                 email: emails,
