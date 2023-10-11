@@ -74,7 +74,7 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
     const {data = [],error} = await supabase
         .from('notifications')
         .select('*')
-        .or('notify_id.eq.'+sanitizedNotifyId);
+        .eq('notify_id', sanitizedNotifyId)
     console.log("not here");
     console.log(data, error)
     return data?.map(({email, notify_id}) => ({
