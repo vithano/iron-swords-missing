@@ -5,6 +5,7 @@ import {ThemeProvider} from "@/components/theme-provider"
 import NavBar from '../components/nav-bar'
 import Footer from '../components/footer'
 import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({subsets: ['latin']})
 
@@ -70,6 +71,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NavBar />
+            <Toaster />
             {children}
             {process.env.NODE_ENV !== "development" && <Analytics />}
             <Footer />

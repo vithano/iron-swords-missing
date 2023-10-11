@@ -30,6 +30,9 @@ export const getDeployments = async () => {
 
 export const getLastDeploymentTime = async () => {
     try {
+        if(process.env.NODE_ENV === 'development') {
+            return {lastDeployedTime: '00:00', lastDeployedDate: '01-01-2021'};
+        }
         const deployments = await getDeployments();
         const deploymentId = deployments?.[0]?.uid;
 

@@ -13,6 +13,7 @@ import { sanitizeImageUrl} from "@/lib/utils";
 import Link from "next/link";
 import StatusPill from "./status-pill";
 import SendEmailToAdminButton from "./ui/sendEmailToAdminButton";
+import NotifyMeButton from "./ui/notifyMeButton";
 
 export function PersonCard(data: PersonData) {
 
@@ -46,6 +47,7 @@ export function PersonCard(data: PersonData) {
             </Link>
                 <CardFooter className="flex justify-between">
                     <SendEmailToAdminButton text={'עדכן אותנו'} subject={subject} />
+                    <NotifyMeButton notify_id={id} table={'people'} />
                     <span>
                         <StatusPill status={status} />
                     </span>

@@ -4,6 +4,7 @@ import {fetchById} from "@/actions";
 import StatusPill from "@/components/status-pill";
 import SendEmailToAdminButton from "@/components/ui/sendEmailToAdminButton";
 import {Metadata} from "next";
+import NotifyMeButton from "@/components/ui/notifyMeButton";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -122,6 +123,9 @@ export default async function Page({params}: {params: {id: string}}) {
                                 </div>
                                 <div className="mt-4">
                                     <SendEmailToAdminButton text={'עדכן אותנו'} subject={subject} />
+                                </div>
+                                <div className="mt-4">
+                                    <NotifyMeButton notify_id={id} table={'people'} />
                                 </div>
                             </div>
 
