@@ -60,7 +60,8 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
                 email,
                 from: 'noreply@ironswords.org.il',
                 subject: `עדכון סטטוס לגבי ${fullName}`,
-                html
+                html,
+                type: `notify_me_${notify_id}`
             });
         }
         catch(err) {
