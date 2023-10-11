@@ -152,9 +152,8 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
             console.error(err);
         }
     }
-    const title = 'עדכנו אותי';
     const description =  
-    <div className="pt-4"><Input disabled={isLoading} placeholder="example@email.com" onChange={onEmailChange}/>
+    <div className="pt-8"><Input disabled={isLoading} placeholder="example@email.com" onChange={onEmailChange}/>
         {countdown === null ? '' : <div dir="rtl" className="pt-4">המייל לא הגיע? נסו שוב בעוד {'00:'+ (countdown < 10 ? '0' : '') + countdown} שניות</div>}
     </div>
     const primaryButton = isLoading ?<ButtonLoading >..שולח</ButtonLoading> : <Button onClick={notifyMe}>עדכנו אותי</Button>
@@ -166,7 +165,7 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
         <Dialog
             description={description}
             primaryButton={primaryButton}
-            title={title}
+            title={''}
             replaceDescription={true}>
             {<Button variant="outline">{BellIcon}</Button>}
         </Dialog>)
