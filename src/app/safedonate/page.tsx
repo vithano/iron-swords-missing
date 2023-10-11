@@ -1,8 +1,20 @@
 export default function Page() {
-    return (
-        <div>
-            <div className="bg-red-800 text-white text-center text-2xl font-bold p-4">אינו באחריות האתר safedonate שימו לב ❤️ פרויקט </div>
-
-            <iframe className="h-screen w-screen bg-red-300" src="https://naboo.ai/safedonate" style={{border: 'none'}}></iframe>;
-        </div>);
+  return (
+    <div>
+      <div
+        className="bg-yellow-400 text-black text-center text-xl font-bold p-4 "
+        dir="rtl"
+      >
+        שימו לב ❤️
+        <br />
+        פרויקט זה לא מתוחזק על ידי צוות האתר
+      </div>
+      <iframe
+        className="h-screen w-screen"
+        src="https://naboo.ai/safedonate"
+        style={{ border: "none" }}
+      ></iframe>
+      ;
+    </div>
+  );
 }
