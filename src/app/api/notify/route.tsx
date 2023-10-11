@@ -3,6 +3,7 @@ import { adminMail, getBaseUrl } from '@/lib/utils';
 import { fetchNotifications,removeNotification,addNotification } from '@/services/notifications';
 import { sendEmail } from '@/services/resend';
 import { createDecipheriv } from "node:crypto";
+import supabase from '@/services/supabase';
 const decrypt = (encryptedData: string, key: string) => {
   const [ivHex, ciphertext] = encryptedData.split(':');  // Split the IV and ciphertext
   const iv = Buffer.from(ivHex, 'hex');
@@ -32,6 +33,10 @@ const getEmailsToNotify = async (id:string) => {
     const emails:string[] = [];
     const notifications = await fetchNotifications({notify_id:id});
     for(const notification of notifications) {
+        const isBlackListed = await supabase.from('blacklist_emails').select('email').eq('email', notification.email).single();
+        if(isBlackListed.data) {
+            continue;
+        }
         emails.push(notification.email);
     }
     return emails;
@@ -84,6 +89,10 @@ export async function PUT(request: Request) {
     const params = decryptedValue.split('&');
     const email = params[0];
     const notify_id = params[1];
+    const isBlackListed = await supabase.from('blacklist_emails').select('email').eq('email', email).single();
+    if(isBlackListed.data) {
+        return NextResponse.json({ error: 'email is blacklisted' }, { status: 400 })
+    }
     if(email && notify_id) {
         const success = await addNotification({email, notify_id});
         if(success) {
