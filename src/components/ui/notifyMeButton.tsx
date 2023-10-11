@@ -50,26 +50,66 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
             }
             const fullName = getFullName(personData.firstName,personData.lastName);
             
-            const html = `<html lang="en">
+            const html = `<!DOCTYPE html>
+            <html lang="he" dir="rtl">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>אני מבקש שתרשמו אותי לעדכונים לגבי ${fullName}</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f8f9fa;
+                        margin: 0;
+                        padding: 20px;
+                        text-align: center;
+                    }
+                    .container {
+                        background-color: #ffffff;
+                        border-radius: 8px;
+                        padding: 20px;
+                        margin: auto;
+                        width: 80%;
+                        max-width: 500px;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    }
+                    h1 {
+                        margin-bottom: 20px;
+                        color: #333;
+                    }
+                    form {
+                        margin-bottom: 10px;
+                    }
+                    button {
+                        background-color: #008CBA;
+                        color: #ffffff;
+                        padding: 10px 20px;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 16px;
+                    }
+                    button:hover {
+                        background-color: #005f5f;
+                    }
+                </style>
             </head>
             <body>
-                <h1 style='padding:5px;'>רישום לעדכונים</h1>
-                <form style='padding:5px' action="${getBaseUrl()}/notify/add" method="get">
-                    <input type="hidden" name="hash" value=${hash}>
-                    <button type="submit">עדכנו אותי</button>
-                </form>
-                <form style='padding:5px' action="${getBaseUrl()}/notify/remove" method="get">
-                    <input type="hidden" name="hash" value=${hash}>
-                    <button type="submit">הסר מרשימת התפוצה</button>
-                </form>
-                <form style='padding:5px' action="${getBaseUrl()}/notify/blacklist" method="get">
-                    <input type="hidden" name="hash" value=${hash}>
-                    <button type="submit">חסום את האימייל שלי</button>
-                </form>
+                <div class="container">
+                    <h1>רישום לעדכונים</h1>
+                    <form action="${getBaseUrl()}/notify/add" method="get">
+                        <input type="hidden" name="hash" value=${hash}>
+                        <button type="submit">עדכנו אותי</button>
+                    </form>
+                    <form action="${getBaseUrl()}/notify/remove" method="get">
+                        <input type="hidden" name="hash" value=${hash}>
+                        <button type="submit">הסר מרשימת התפוצה</button>
+                    </form>
+                    <form action="${getBaseUrl()}/notify/blacklist" method="get">
+                        <input type="hidden" name="hash" value=${hash}>
+                        <button type="submit">חסום את האימייל שלי</button>
+                    </form>
+                </div>
             </body>
             </html>`
             const response = await sendEmail({
