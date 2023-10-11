@@ -4,6 +4,7 @@ import { fetchNotifications,removeNotification,addNotification } from '@/service
 import { sendEmail } from '@/services/resend';
 import { createDecipheriv } from "node:crypto";
 import { isBlacklisted } from '@/services/blacklist';
+import supabase from '@/services/supabase';
 export const runtime = 'nodejs';
 
 const decrypt = (encryptedData: string, key: string) => {
@@ -35,7 +36,14 @@ export async function POST(request: Request) {
 const getEmailsToNotify = async (id:string) => {
     const emails:string[] = [];
     console.log('id', id)
-    const notifications = await fetchNotifications({notify_id:id});
+    const {data:notifications,error} = await supabase
+    .from('notifications')
+    .select('*')
+    .eq('notify_id', id);
+    if(error) {
+        console.error(error);
+        return [];
+    }
     console.log('notifications', notifications)
     for(const notification of notifications) {
         const isBlackListed = await isBlacklisted({email:notification.email});
