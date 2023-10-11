@@ -1,18 +1,20 @@
 import {cn, sanitizeImageUrl} from "@/lib/utils";
 
 import {fetchById} from "@/actions";
-import Link from "next/link";
-import StatusPill from "../../../components/status-pill";
-import Head from "next/head";
+import StatusPill from "@/components/status-pill";
+import SendEmailToAdminButton from "@/components/ui/sendEmailToAdminButton";
 import {Metadata} from "next";
 import SendEmailToAdminButton from "../../../components/ui/sendEmailToAdminButton";
 import NotifyMeButton from "@/components/ui/notifyMeButton";
+import Head from "next/head";
+import Link from "next/link";
 
 interface PageProps {
     params: {
         id: string
     }
 }
+
 export async function generateMetadata({
     params,
 }: PageProps): Promise<Metadata> {
@@ -25,15 +27,30 @@ export async function generateMetadata({
         return {}
     }
 
-    const img = sanitizeImageUrl(data.image)
     const url = "https://ironswords.org.il";
+
     const ogUrl = new URL(`${url}/profile/${params.id}}`)
+
+    const {
+        firstName,
+        image,
+        identifyingDetails = "",
+        lastSeen = "",
+        lastName,
+        status,
+        notes = ""
+    } = data;
+
+    const sanitizedImage = sanitizeImageUrl(image)
+
     ogUrl.searchParams.set("title", `${data.firstName} ${data.lastName}`)
     ogUrl.searchParams.set("type", "article")
     ogUrl.searchParams.set("mode", "light")
-    const title = `${data.firstName} ${data.lastName} - חרבות ברזל - איתור ועדכון נעדרים`;
-    const personTitle = `${data.firstName} ${data.lastName}`;
-    const desc = `${data.lastSeen} - ${data.identifyingDetails} - ${data.notes}`;
+
+    const title = `${firstName} ${lastName} - ${status} - חרבות ברזל - איתור ועדכון נעדרים`;
+    const personTitle = `${firstName} ${lastName} - ${status}`;
+    const desc = `${lastSeen} - ${identifyingDetails} - ${notes}`;
+
     return {
         title: title,
         description: desc,
@@ -44,7 +61,7 @@ export async function generateMetadata({
             url: ogUrl.toString(),
             images: [
                 {
-                    url: img,
+                    url: sanitizedImage,
                     width: 1200,
                     height: 630,
                     alt: personTitle,
@@ -56,7 +73,7 @@ export async function generateMetadata({
             title: personTitle,
             description: desc,
             images: [{
-                url: img,
+                url: sanitizedImage,
                 width: 1200,
                 height: 630,
                 alt: personTitle,
@@ -78,11 +95,11 @@ export default async function Page({params}: {params: {id: string}}) {
         firstName,
         lastName,
         contactName,
-        identifyingDetails,
+        identifyingDetails = "",
         contactPhone,
         image,
         lastSeen,
-        notes,
+        notes = "",
         status,
         source
     } = data;

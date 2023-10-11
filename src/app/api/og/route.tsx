@@ -38,7 +38,7 @@ export async function GET(request: Request) {
                         padding: '0 120px',
                         lineHeight: 1.4,
                         whiteSpace: 'pre-wrap',
-                        backgroundColor: "#db4f4f",
+                        backgroundColor: "#c7d31c",
                     }}
                 >
                     {title}
