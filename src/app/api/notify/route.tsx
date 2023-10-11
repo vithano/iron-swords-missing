@@ -18,7 +18,9 @@ const decrypt = (encryptedData: string, key: string) => {
 // webhook to handle changes in the database
 export async function POST(request: Request) {
     const data = await request.json();
+    console.log('data table', data.table);
     if(data.table === 'people') {
+        console.log('data tagble', data.table);
         handlePeople(data);
     }
     else if(data.table === 'animals') {
