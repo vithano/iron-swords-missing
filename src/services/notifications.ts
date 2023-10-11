@@ -68,8 +68,8 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
     if (!sanitizedEmail && !sanitizedNotifyId)
         return [];
     const andQuery = sanitizedEmail && sanitizedNotifyId ? `and(email.eq.${sanitizedEmail},notify_id.eq.${sanitizedNotifyId})` : '';
-    let orQuery = !andQuery && sanitizedEmail ? `or(email.eq.${sanitizedEmail})` : '';
-    orQuery = !andQuery && sanitizedNotifyId? `or(notify_id.eq.${sanitizedNotifyId})` : orQuery;
+    let orQuery = !andQuery && sanitizedEmail ? `email.eq.${sanitizedEmail}` : '';
+    orQuery = !andQuery && sanitizedNotifyId? `notify_id.eq.${sanitizedNotifyId}` : orQuery;
     console.log(andQuery, orQuery)
     const {data = [],error} = await supabase
         .from('notifications')
@@ -81,7 +81,7 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
         notify_id
         })) ?? [];
       }catch(e){
-        console.error(e);
+        console.log(e);
         return [];
       }
 }
