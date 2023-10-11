@@ -1,6 +1,7 @@
 'use client'
 
 import { removeNotification } from "@/actions";
+import { LoadingPage } from "@/components/ui/loadingPage";
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react";
 
@@ -52,7 +53,7 @@ useEffect(()=>{
     });
 },[])
 
-if(showSuccess == false && showError == false ) return <></>;
+if(!showSuccess && !showError) return <LoadingPage />;
 if(showSuccess) return SuccessPage();
 if(showError) return ErrorPage();
 
