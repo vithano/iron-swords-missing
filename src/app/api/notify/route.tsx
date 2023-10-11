@@ -4,7 +4,6 @@ import { fetchNotifications,removeNotification,addNotification } from '@/service
 import { sendEmail } from '@/services/resend';
 import { createDecipheriv } from "node:crypto";
 import { isBlacklisted } from '@/services/blacklist';
-import supabase from '@/services/supabase';
 export const runtime = 'nodejs';
 
 const decrypt = (encryptedData: string, key: string) => {
@@ -19,9 +18,7 @@ const decrypt = (encryptedData: string, key: string) => {
 // webhook to handle changes in the database
 export async function POST(request: Request) {
     const data = await request.json();
-    console.log('data table', data.table);
     if(data.table === 'people') {
-        console.log('data tagble', data.table);
         await handlePeople(data);
     }
     else if(data.table === 'animals') {
@@ -35,7 +32,6 @@ export async function POST(request: Request) {
 }
 const getEmailsToNotify = async (id:string) => {
     const emails:string[] = [];
-    console.log('id', id)
     const notifications = await fetchNotifications({notify_id:id});
     for(const notification of notifications) {
         const isBlackListed = await isBlacklisted({email:notification.email});
@@ -52,7 +48,7 @@ const handlePeople = async (data: any) => {
         const emails = await getEmailsToNotify(newRecord.id);
         const fullName = `${newRecord.first_name}` + (newRecord.last_name ? ` ${newRecord.last_name}` : '');
         if(emails.length) {
-            const response = await sendEmail({
+            await sendEmail({
                 email: emails,
                 from: 'noreply@ironswords.org.il',
                 subject: `עדכון סטטוס לגבי ${fullName}`,
