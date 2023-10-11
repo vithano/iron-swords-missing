@@ -3,7 +3,7 @@ import { adminMail, getBaseUrl } from '@/lib/utils';
 import { fetchNotifications,removeNotification,addNotification } from '@/services/notifications';
 import { sendEmail } from '@/services/resend';
 import { createDecipheriv } from "node:crypto";
-export const decrypt = (encryptedData: string, key: string) => {
+const decrypt = (encryptedData: string, key: string) => {
   const [ivHex, ciphertext] = encryptedData.split(':');  // Split the IV and ciphertext
   const iv = Buffer.from(ivHex, 'hex');
   const decipher = createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
