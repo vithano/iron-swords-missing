@@ -21,7 +21,7 @@ const decrypt = (encryptedData: string, key: string) => {
 
 // encrypt/decrypt data
 export async function POST(request: NextRequest) {
-    if (!request.headers.get("referer")?.slice(0, -1).includes(getBaseUrl() as string)) {
+    if (!request.headers.get("referer")?.slice(0, -1).includes(getBaseUrl() as string) && !request.headers.get("referer")?.includes('iron-swords-missing')) {
         return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
     const encryptionKey = process.env.ENCRYPTION_KEY;
