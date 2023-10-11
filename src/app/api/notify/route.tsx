@@ -22,10 +22,11 @@ export async function POST(request: Request) {
     console.log('data table', data.table);
     if(data.table === 'people') {
         console.log('data tagble', data.table);
-        handlePeople(data);
+        await handlePeople(data);
+        console.log('data table2', data.table)
     }
     else if(data.table === 'animals') {
-        handleAnimals(data);
+        await handleAnimals(data);
     }
     return new NextResponse('Webhook handled', {
         headers: {
