@@ -1,5 +1,4 @@
 'use client'
-import { getBaseUrl } from '@/lib/utils';
 
 export async function encrypt({email,notify_id,table}:{email:string,notify_id:string,table:string}) {
   const data = await fetch(`/api/encryption`, {

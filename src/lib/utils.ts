@@ -52,3 +52,7 @@ export const translateKeys = (data:any) => {
   });
   return translatedRow;
 })};
+
+export const getFullName = (firstName: string, lastName?: string) => {
+  return `${firstName}` + (lastName && lastName.toLowerCase() !== 'null'  ? ` ${lastName}` : '');
+}

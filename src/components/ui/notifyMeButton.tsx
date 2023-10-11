@@ -1,5 +1,5 @@
 'use client';
-import { getBaseUrl } from "@/lib/utils";
+import { getBaseUrl, getFullName } from "@/lib/utils";
 import {Button} from "./button";
 import {Dialog} from "./dialog";
 import { Input } from "./input";
@@ -32,7 +32,7 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
             if(!personData || !hash) {
                 return;
             }
-            const fullName = `${personData.firstName} ${personData.lastName}`;
+            const fullName = getFullName(personData.firstName,personData.lastName);
             
             const html = `<html lang="en">
             <head>
