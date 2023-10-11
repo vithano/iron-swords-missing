@@ -52,7 +52,7 @@ const handlePeople = async (data: any) => {
         if(emails.length) {
             const response = await sendEmail({
                 email: emails,
-                from: adminMail,
+                from: 'noreply@ironswords.org.il',
                 subject: `עדכון סטטוס לגבי ${fullName}`,
                 html: `שלום רב, היה עדכון בסטטוס של ${fullName}
                 ניתן לעקוב אחרי העדכונים בקישור הבא: ${getBaseUrl()}/profile/${newRecord.id}`
@@ -69,7 +69,7 @@ const handleAnimals = async (data: any) => {
         if(emails.length) {
             sendEmail({
                 email: emails,
-                from: adminMail,
+                from: 'noreply@ironswords.org.il',
                 subject: `עדכון סטטוס לגבי ${newRecord.name}`,
                 html: `שלום רב, היה עדכון בסטטוס של ${newRecord.name}
                 ניתן לעקוב אחרי העדכונים בקישור הבא: ${getBaseUrl()}/profile/${newRecord.id}`

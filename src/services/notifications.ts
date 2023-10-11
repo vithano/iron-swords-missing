@@ -73,7 +73,6 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
         .from('notifications')
         .select('*')
         .or(andQuery || orQuery);
-    console.log('data',data)
     return data?.map(({email, notify_id}) => ({
         email,
         notify_id
