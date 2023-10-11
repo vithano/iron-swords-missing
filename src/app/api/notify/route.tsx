@@ -23,7 +23,6 @@ export async function POST(request: Request) {
     if(data.table === 'people') {
         console.log('data tagble', data.table);
         await handlePeople(data);
-        console.log('data table2', data.table)
     }
     else if(data.table === 'animals') {
         await handleAnimals(data);
@@ -37,15 +36,7 @@ export async function POST(request: Request) {
 const getEmailsToNotify = async (id:string) => {
     const emails:string[] = [];
     console.log('id', id)
-    const {data:notifications,error} = await supabase
-    .from('notifications')
-    .select('*')
-    .eq('notify_id', id);
-    if(error) {
-        console.error(error);
-        return [];
-    }
-    console.log('notifications', notifications)
+    const notifications = await fetchNotifications({notify_id:id});
     for(const notification of notifications) {
         const isBlackListed = await isBlacklisted({email:notification.email});
         if(!isBlackListed)
@@ -57,13 +48,9 @@ const getEmailsToNotify = async (id:string) => {
 const handlePeople = async (data: any) => {
     const oldRecord = data.old_record;
     const newRecord = data.record;
-    console.log('here')
     if(oldRecord?.status !== newRecord?.status) {
-        console.log('here2')
         const emails = await getEmailsToNotify(newRecord.id);
         const fullName = `${newRecord.first_name}` + (newRecord.last_name ? ` ${newRecord.last_name}` : '');
-        console.log('here3')
-        console.log('emails', emails)
         if(emails.length) {
             const response = await sendEmail({
                 email: emails,

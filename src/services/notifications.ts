@@ -63,7 +63,6 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
     const {email, notify_id} = props ?? {email: '', notify_id: ''};
     const sanitizedEmail = validator.escape(email || '');
     const sanitizedNotifyId = validator.escape(notify_id || '');
-    
     if (!sanitizedEmail && !sanitizedNotifyId)
         return [];
     const andQuery = sanitizedEmail && sanitizedNotifyId ? `and(email.eq.${sanitizedEmail},notify_id.eq.${sanitizedNotifyId})` : '';
