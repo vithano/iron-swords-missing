@@ -1,3 +1,4 @@
+'use server'
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_KEY);
@@ -8,13 +9,11 @@ export const sendEmail = async ({from, email, subject, html, text}:{from:string,
         ...(html && !text && {html}),
         ...(text && !html && {text}),
      };
-     console.log(email)
     const response = await resend.sendEmail({
         from,
         to: email,
         subject,
         ...htmlOrText,
     });
-    console.log(response)
     return response;
 }

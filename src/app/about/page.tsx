@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import SendEmailToAdminButton from "@/components/ui/sendEmailToAdminButton"
-import {mailAdmin} from "@/lib/utils"
 export default function About() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-6 sm:p-24" dir="rtl">

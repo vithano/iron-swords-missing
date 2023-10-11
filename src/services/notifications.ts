@@ -1,3 +1,4 @@
+'use server'
 import {NotificationData} from '../app/utils/types';
 import supabase from './supabase';
 import validator from 'validator';
@@ -10,7 +11,6 @@ export async function addNotification(props?: Props): Promise<boolean> {
   const {email, notify_id} = props ?? {email: '', notify_id: ''};
   const sanitizedEmail = validator.escape(email || '');
   const sanitizedNotifyId = validator.escape(notify_id || '');
-  console.log(sanitizedEmail, sanitizedNotifyId)
   if (!sanitizedEmail || !sanitizedNotifyId)
     return false;
 
@@ -20,7 +20,6 @@ export async function addNotification(props?: Props): Promise<boolean> {
     .eq('email', sanitizedEmail)
     .eq('notify_id', sanitizedNotifyId)
     .limit(1);
-    console.log(isAlreadySubscribed)
     if(isAlreadySubscribed.error)
         return false;
 
@@ -32,7 +31,6 @@ export async function addNotification(props?: Props): Promise<boolean> {
     .insert([
       {email: sanitizedEmail, notify_id: sanitizedNotifyId}
     ]);
-  console.log(data)
   return true;
 }
 export async function removeNotification(props?: Props): Promise<boolean> {
@@ -79,3 +77,15 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
         notify_id
         })) ?? [];
 }
+export async function blacklistEmail(props?: Props): Promise<boolean> {
+    const {email} = props ?? {email: ''};
+    const sanitizedEmail = validator.escape(email || '');
+    if (!sanitizedEmail)
+        return false;
+    await supabase
+    .from('blacklist_emails')
+    .insert([
+        {email: sanitizedEmail}
+    ]);
+    return true;
+    }

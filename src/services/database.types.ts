@@ -94,14 +94,54 @@ export interface Database {
         Row: {
           email: string,
           notify_id: string,
+          last_notified_date: string | null,
         },
         Insert: {
           email: string,
           notify_id: string,
+          last_notified_date?: string | null,
         },
         Update: {
           email?: string,
           notify_id?: string,
+          last_notified_date?: string,
+        },
+        Delete: {
+          email?: string,
+          notify_id?: string,
+        },
+        Relationships: []
+      },
+      blacklist_emails: {
+        Row: {
+          email: string,
+        },
+        Insert: {
+          email: string
+        },
+        Update: {
+          email: string,
+        },
+        Delete: {
+          email: string
+        },
+        Relationships: []
+      },
+      emails_sent: {
+        Row: {
+          email: string,
+          last_sent_date: string,
+          type: string,
+        },
+        Insert: {
+          email: string,
+          last_sent_date: string,
+          type: string
+        },
+        Update: {
+          email: string,
+          last_sent_date: string,
+          type: string
         },
         Relationships: []
       }

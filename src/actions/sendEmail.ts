@@ -1,9 +1,16 @@
-'use server'
-import { cookies } from 'next/headers'
+import { getBaseUrl } from '@/lib/utils';
 
-import { sendEmail as sendEmailResend } from '@/services/resend';
-export async function sendEmail({from, email, subject, html, text}:{from:string,email: string | string[], subject: string, html?: string, text?: string}) {
-  const _cookies = cookies()
-  const success = await sendEmailResend({from, email, subject, html, text});
+export async function sendEmail({from, email, subject, html, text,type = 'notify_me'}:{from:string,email: string | string[], subject: string, html?: string, text?: string,type?:string}) {
+  const success = await fetch(`${getBaseUrl()}/api/email`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+    },
+    body: JSON.stringify({from, email, subject, html, text, type}),
+  }).catch((err) => {
+    console.error(err)
+    return false;
+  });
   return success;
 }

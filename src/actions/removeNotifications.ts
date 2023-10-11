@@ -1,10 +1,23 @@
-'use server'
+'use client'
 
-import { cookies } from 'next/headers'
-import { removeNotification as removeNotificationFromDb } from '@/services/notifications'
-import type { NotificationData } from '@/app/utils/types'
-export async function removeNotification({email,notify_id}:Partial<NotificationData>) {
-  const _cookies = cookies()
-  const data = await removeNotificationFromDb({email,notify_id});
+import { getBaseUrl } from '@/lib/utils';
+export async function removeNotification({hash,blacklist = false}:{hash:string,blacklist?:boolean}) {
+  if(blacklist){
+    const data = await fetch(`${getBaseUrl()}/api/notify/blacklist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({hash}),
+    })
+    return data;
+  }
+  const data = await fetch(`${getBaseUrl()}/api/notify`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({hash}),
+  })
   return data;
 }

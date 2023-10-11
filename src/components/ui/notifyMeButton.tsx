@@ -1,25 +1,37 @@
 'use client';
-import { adminMail, getBaseUrl } from "@/lib/utils";
+import { getBaseUrl } from "@/lib/utils";
 import {Button} from "./button";
 import {Dialog} from "./dialog";
 import { Input } from "./input";
 import { useState } from "react";
 import validator from 'validator';
 import { fetchById, sendEmail } from "@/actions";
+import { encrypt } from "@/actions/encryption";
 
 const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
     const [email, setEmail] = useState('');
     const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value);
         validator.isEmail(event.target.value) &&
         setEmail(event.target.value);
     }
     const notifyMe = async () => {
         try{
-            
-            const personData = await fetchById({id:notify_id});
-            if(!personData) {
+            if(!email) {
                 return;
             }
+            const personData = await fetchById({id:notify_id});
+            const hashData = {
+                email,
+                notify_id,
+                table
+            }
+            const {hash} = await (await encrypt(hashData)).json();
+            
+            if(!personData || !hash) {
+                return;
+            }
+            console.log(hash)
             const fullName = `${personData.firstName} ${personData.lastName}`;
             
             const html = `<html lang="en">
@@ -29,11 +41,18 @@ const NotifyMeButton = ({notify_id,table}:{notify_id:string,table:string}) => {
                 <title>אני מבקש שתרשמו אותי לעדכונים לגבי ${fullName}</title>
             </head>
             <body>
-                <h1>Sign Up for Notifications</h1>
-                <form action="${getBaseUrl()}/api/notify" method="put">
-                    <input type="hidden" name="email" value=${email}>
-                    <input type="hidden" name="notify_id" value=${notify_id}>
+                <h1 style='padding:5px;'>רישום לעדכונים</h1>
+                <form style='padding:5px' action="${getBaseUrl()}/notify/add" method="get">
+                    <input type="hidden" name="hash" value=${hash}>
                     <button type="submit">עדכנו אותי</button>
+                </form>
+                <form style='padding:5px' action="${getBaseUrl()}/notify/remove" method="get">
+                    <input type="hidden" name="hash" value=${hash}>
+                    <button type="submit">הסר מרשימת התפוצה</button>
+                </form>
+                <form style='padding:5px' action="${getBaseUrl()}/notify/blacklist" method="get">
+                    <input type="hidden" name="hash" value=${hash}>
+                    <button type="submit">חסום את האימייל שלי</button>
                 </form>
             </body>
             </html>`

@@ -1,10 +1,12 @@
-'use server'
-
-import { cookies } from 'next/headers'
-import { addNotification as addNotificationToDb } from '@/services/notifications'
-import type { NotificationData } from '@/app/utils/types'
-export async function addNotification({email,notify_id}:Partial<NotificationData>) {
-  const _cookies = cookies()
-  const data = await addNotificationToDb({email,notify_id});
+import { getBaseUrl } from '@/lib/utils'
+export async function addNotification({hash}:{hash:string}) {
+  const data = await fetch(`${getBaseUrl()}/api/notify`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+    },
+    body: JSON.stringify({hash}),
+  })
   return data;
 }

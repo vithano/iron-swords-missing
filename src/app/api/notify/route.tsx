@@ -1,9 +1,19 @@
 import { NextResponse } from 'next/server';
 import { adminMail, getBaseUrl } from '@/lib/utils';
-import { fetchNotifications,addNotification, sendEmail } from '@/actions';
+import { fetchNotifications,removeNotification,addNotification } from '@/services/notifications';
+import { sendEmail } from '@/services/resend';
+import { createDecipheriv } from "node:crypto";
+export const decrypt = (encryptedData: string, key: string) => {
+  const [ivHex, ciphertext] = encryptedData.split(':');  // Split the IV and ciphertext
+  const iv = Buffer.from(ivHex, 'hex');
+  const decipher = createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), iv);
+  let decrypted = decipher.update(ciphertext, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+};
 
-export const runtime = 'edge';
-
+export const runtime = 'nodejs';
+// webhook to handle changes in the database
 export async function POST(request: Request) {
     const data = await request.json();
     if(data.table === 'people') {
@@ -61,52 +71,44 @@ const handleAnimals = async (data: any) => {
         }
     }
 };
-// show page with success message
-const successPageHtml = `
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>עדכוני סטטוס</title>
-    </head>
-    <body>
-        <h1>נרשמת בהצלחה לעדכוני סטטוס</h1>
-        <p>ישלח לך מייל אם נקבל עדכון לגבי הנעדר שלך</p>
-        <p>מאחלים בשורות טובות בלבד</p>
-    </body>
-</html>
-`
-const errorPageHtml = `
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>עדכוני סטטוס</title>
-    </head>
-    <body>
-        <h1>משהו השתבש</h1>
-        <p>נסו שוב מאוחר יותר</p>
-    </body>
-</html>
-`
+
 // to add email to notifications table coming from the notify me button
 export async function PUT(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('email');
-    const notify_id = searchParams.get('notify_id');
+    const json = await request.json();
+    const encryptedValue = json.hash;
+    const encryptionKey = process.env.ENCRYPTION_KEY;
+    if(!encryptedValue || !encryptionKey) {
+        return NextResponse.json({ error: 'decryption failed' }, { status: 400 })
+    }
+    const decryptedValue = decrypt(encryptedValue, encryptionKey);
+    const params = decryptedValue.split('&');
+    const email = params[0];
+    const notify_id = params[1];
     if(email && notify_id) {
         const success = await addNotification({email, notify_id});
         if(success) {
-            return new NextResponse(successPageHtml, {
-                headers: {
-                    'content-type': 'text/html',
-                },
-            });
+            return NextResponse.json({ success: true }, { status: 200 })
         }
     }
-    return new NextResponse(errorPageHtml, {
-        headers: {
-            'content-type': 'text/html',
-        },
-    });
+    return NextResponse.json({ error: 'decryption failed' }, { status: 400 })
+}
+// remove email from notifications table coming from the notify page
+export async function DELETE(request: Request) {
+    const json = await request.json();
+    const encryptedValue = json.hash;
+    const encryptionKey = process.env.ENCRYPTION_KEY;
+    if(!encryptedValue || !encryptionKey) {
+        return NextResponse.json({ error: 'decryption failed' }, { status: 400 })
+    }
+    const decryptedValue = decrypt(encryptedValue, encryptionKey);
+    const params = decryptedValue.split('&');
+    const email = params[0];
+    const notify_id = params[1];
+    if(email && notify_id) {
+        const success = await removeNotification({email, notify_id});
+        if(success) {
+            return NextResponse.json({ success: true }, { status: 200 })
+        }
+    }
+    return NextResponse.json({ error: 'decryption failed' }, { status: 400 })
 }
