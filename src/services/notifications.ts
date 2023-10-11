@@ -66,12 +66,14 @@ export async function fetchNotifications(props?: Props): Promise<NotificationDat
     
     if (!sanitizedEmail && !sanitizedNotifyId)
         return [];
-    const orQuery = `or(email.eq.${sanitizedEmail},notify_id.eq.${sanitizedNotifyId})`;
+    const andQuery = sanitizedEmail && sanitizedNotifyId ? `and(email.eq.${sanitizedEmail},notify_id.eq.${sanitizedNotifyId})` : '';
+    let orQuery = !andQuery && sanitizedEmail ? `or(email.eq.${sanitizedEmail})` : '';
+    orQuery = !andQuery && sanitizedNotifyId? `or(notify_id.eq.${sanitizedNotifyId})` : orQuery;
     const {data = []} = await supabase
         .from('notifications')
         .select('*')
-        .or(orQuery);
-
+        .or(andQuery || orQuery);
+    console.log('data',data)
     return data?.map(({email, notify_id}) => ({
         email,
         notify_id
