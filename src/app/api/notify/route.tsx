@@ -4,6 +4,8 @@ import { fetchNotifications,removeNotification,addNotification } from '@/service
 import { sendEmail } from '@/services/resend';
 import { createDecipheriv } from "node:crypto";
 import supabase from '@/services/supabase';
+export const runtime = 'nodejs';
+
 const decrypt = (encryptedData: string, key: string) => {
   const [ivHex, ciphertext] = encryptedData.split(':');  // Split the IV and ciphertext
   const iv = Buffer.from(ivHex, 'hex');
@@ -13,10 +15,10 @@ const decrypt = (encryptedData: string, key: string) => {
   return decrypted;
 };
 
-export const runtime = 'nodejs';
 // webhook to handle changes in the database
 export async function POST(request: Request) {
     const data = await request.json();
+    console.log(data);
     if(data.table === 'people') {
         handlePeople(data);
     }
@@ -47,15 +49,16 @@ const handlePeople = async (data: any) => {
     const newRecord = data.record;
     if(oldRecord?.status !== newRecord?.status) {
         const emails = await getEmailsToNotify(newRecord.id);
-        const fullName = `${newRecord.first_name} ${newRecord.last_name}`;
+        const fullName = `${newRecord.first_name} ${newRecord.last_name ?? ''}`;
         if(emails.length) {
-            sendEmail({
+            const response = await sendEmail({
                 email: emails,
                 from: adminMail,
                 subject: `עדכון סטטוס לגבי ${fullName}`,
                 html: `שלום רב, היה עדכון בסטטוס של ${fullName}
                 ניתן לעקוב אחרי העדכונים בקישור הבא: ${getBaseUrl()}/profile/${newRecord.id}`
             });
+            console.log(response)
         }
     }
 };
