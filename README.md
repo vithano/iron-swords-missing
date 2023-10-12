@@ -50,10 +50,3 @@ We welcome contributions to this project. Please feel free to open an issue or c
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Contact
-
-For any inquiries or issues, please contact:
-[Pavel Kaminsky](https://github.com/kaminskypavel).
-[vithano](https://github.com/vithano)
-[Idan Dagan](https://github.com/idandagan1)
