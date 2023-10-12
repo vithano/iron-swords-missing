@@ -1,23 +1,31 @@
-'use client'
+"use client";
 
-export async function encrypt({email,notify_id,table}:{email:string,notify_id:string,table:string}) {
+export async function encrypt({
+  email,
+  notify_id,
+  table,
+}: {
+  email: string;
+  notify_id: string;
+  table: string;
+}) {
   const data = await fetch(`/api/encryption`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({email,notify_id,table}),
-  })
+    body: JSON.stringify({ email, notify_id, table }),
+  });
   return data;
 }
 
-export async function decrypt({hash}:{hash:string}) {
+export async function decrypt({ hash }: { hash: string }) {
   const data = await fetch(`/api/encryption`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({hash}),
-  })
+    body: JSON.stringify({ hash }),
+  });
   return data;
 }

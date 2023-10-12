@@ -3,12 +3,12 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { clsx } from "clsx";
 import React, { Fragment, useState } from "react";
 interface DialogProps {
-    children: React.ReactNode;
-    title: string;
-    description: string | React.ReactNode;
-    primaryButton?: React.ReactNode;
-    secondaryButton?: React.ReactNode;
-    replaceDescription?: boolean;
+  children: React.ReactNode;
+  title: string;
+  description: string | React.ReactNode;
+  primaryButton?: React.ReactNode;
+  secondaryButton?: React.ReactNode;
+  replaceDescription?: boolean;
 }
 
 const Dialog = (props: DialogProps) => {
@@ -50,27 +50,43 @@ const Dialog = (props: DialogProps) => {
                 "w-[95vw] max-w-md rounded-lg p-4 md:w-full",
                 "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
                 "bg-white dark:bg-gray-800",
-                "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75",
               )}
             >
-              <DialogPrimitive.Title dir="rtl" className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              <DialogPrimitive.Title
+                dir="rtl"
+                className="text-sm font-medium text-gray-900 dark:text-gray-100"
+              >
                 {props.title}
               </DialogPrimitive.Title>
-              {props.replaceDescription?props.description : <DialogPrimitive.Description dir="rtl" className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                {props.description}
-              </DialogPrimitive.Description>}
-              <div className={`mt-4 flex ${props.secondaryButton? 'justify-between' : 'justify-end'}`}>
+              {props.replaceDescription ? (
+                props.description
+              ) : (
+                <DialogPrimitive.Description
+                  dir="rtl"
+                  className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400"
+                >
+                  {props.description}
+                </DialogPrimitive.Description>
+              )}
+              <div
+                className={`mt-4 flex ${
+                  props.secondaryButton ? "justify-between" : "justify-end"
+                }`}
+              >
                 {props.primaryButton && props.primaryButton}
                 {props.secondaryButton && props.secondaryButton}
               </div>
               <DialogPrimitive.Close
                 className={clsx(
                   "absolute top-3.5 right-3.5 inline-flex items-center justify-center rounded-full p-1",
-                  "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75",
                 )}
-                style={{insetInlineEnd:'auto'}}
+                style={{ insetInlineEnd: "auto" }}
               >
-                <span className="h-4 w-4 text-gray-500 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-400" >X</span>
+                <span className="h-4 w-4 text-gray-500 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-400">
+                  X
+                </span>
               </DialogPrimitive.Close>
             </DialogPrimitive.Content>
           </Transition.Child>

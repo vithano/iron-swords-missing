@@ -17,11 +17,13 @@ npm install -g pnpm
 ## Installation
 
 1. Clone this repository to your local machine using:
+
    ```bash
    git clone https://github.com/kaminskypavel/iron-swords-missing.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
    cd iron-swords-missing
    ```
@@ -34,6 +36,7 @@ npm install -g pnpm
 ## Usage
 
 To start the application, use the following command:
+
 ```bash
 pnpm dev
 ```

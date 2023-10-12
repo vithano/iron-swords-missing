@@ -3,15 +3,15 @@ import { clsx } from "clsx";
 import React from "react";
 
 interface TooltipProps {
-    children: React.ReactNode;
-    content: string;
-    open?: boolean;
+  children: React.ReactNode;
+  content: string;
+  open?: boolean;
 }
 
 const Tooltip = (props: TooltipProps) => {
   return (
     <TooltipPrimitive.Provider delayDuration={200}>
-      <TooltipPrimitive.Root open={props.open} >
+      <TooltipPrimitive.Root open={props.open}>
         <TooltipPrimitive.Trigger asChild>
           {props.children}
         </TooltipPrimitive.Trigger>
@@ -23,7 +23,7 @@ const Tooltip = (props: TooltipProps) => {
             "radix-side-bottom:animate-slide-up-fade",
             "radix-side-left:animate-slide-right-fade",
             "inline-flex items-center rounded-md px-4 py-2.5",
-            "bg-white dark:bg-gray-800"
+            "bg-white dark:bg-gray-800",
           )}
         >
           <TooltipPrimitive.Arrow className="fill-current text-white dark:text-gray-800" />

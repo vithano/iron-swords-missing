@@ -1,27 +1,26 @@
-import './globals.css'
-import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
-import {ThemeProvider} from "@/components/theme-provider"
-import NavBar from '../components/nav-bar'
-import Footer from '../components/footer'
-import { Analytics } from '@vercel/analytics/react';
-import { Toaster } from '@/components/ui/toaster'
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import NavBar from "../components/nav-bar";
+import Footer from "../components/footer";
+import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({subsets: ['latin']})
-
+const inter = Inter({ subsets: ["latin"] });
 
 export async function generateMetadata(): Promise<Metadata> {
-  if(process.env.NODE_ENV === "development") {
-    return {}
+  if (process.env.NODE_ENV === "development") {
+    return {};
   }
-  const url = "https://ironswords.org.il"
+  const url = "https://ironswords.org.il";
   const title = "חרבות ברזל - איתור ועדכון נעדרים";
   const desc = "חרבות ברזל - איתור ועדכון נעדרים";
 
-  const ogUrl = new URL(`${url}/api/og`)
-  ogUrl.searchParams.set("title", title)
-  ogUrl.searchParams.set("type", "article")
-  ogUrl.searchParams.set("mode", "dark")
+  const ogUrl = new URL(`${url}/api/og`);
+  ogUrl.searchParams.set("title", title);
+  ogUrl.searchParams.set("type", "article");
+  ogUrl.searchParams.set("mode", "dark");
 
   return {
     title,
@@ -50,19 +49,20 @@ export async function generateMetadata(): Promise<Metadata> {
           width: 1200,
           height: 630,
           alt: title,
-        }],
+        },
+      ],
     },
-  }
+  };
 }
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning >
+      <html lang="en" suppressHydrationWarning>
         <body>
           <ThemeProvider
             attribute="class"
@@ -79,5 +79,5 @@ export default function RootLayout({
         </body>
       </html>
     </>
-  )
+  );
 }
