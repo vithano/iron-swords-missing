@@ -10,7 +10,9 @@ const MIN_QUERY_LENGTH = 3;
 export async function fetchDbData(props?: Props): Promise<PersonData[]> {
   const { name, id } = props ?? { name: "", id: null };
   const isFullName = name?.includes(" ");
+  const isHebrewEnglishOrWhiteSpace = /^[\u0020\u0041-\u005A\u0061-\u007A\u0590-\u05FF]+$/.test(name || "");
   const sanitizedName = validator.escape(name || "");
+  if(sanitizedName && !isHebrewEnglishOrWhiteSpace) return [];
   const firstName = (
     isFullName ? sanitizedName.split(" ")[0] : sanitizedName
   ).trim();
