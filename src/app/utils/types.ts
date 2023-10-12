@@ -10,9 +10,9 @@ export type PersonData = {
   identifyingDetails: string;
   notes: string;
   source: string;
-}
+};
 export type NotificationData = {
   email: string;
   notify_id: string;
-}
+};
 export default PersonData;

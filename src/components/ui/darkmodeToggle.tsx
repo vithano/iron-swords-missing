@@ -2,7 +2,9 @@ import React from "react";
 <button
   id="theme-toggle"
   type="button"
-  className={"text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"}
+  className={
+    "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+  }
 >
   <svg
     id="theme-toggle-dark-icon"
@@ -11,9 +13,7 @@ import React from "react";
     viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
-      d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-    ></path>
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
   </svg>
   <svg
     id="theme-toggle-light-icon"
@@ -28,4 +28,4 @@ import React from "react";
       clip-rule="evenodd"
     ></path>
   </svg>
-</button>
+</button>;
